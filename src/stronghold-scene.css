@@ -1,0 +1,67 @@
+.v26-room-actions { z-index: 2 }
+.v26-room-actions .v26-moving-art { position:absolute; inset:0; pointer-events:none }
+.v26-room-actions .field-rail { bottom:24%; left:6%; right:57%; pointer-events:auto; z-index:1 }
+.v26-room-actions .field-rail span { color:#eadabd; text-shadow:0 2px 5px #030808 }
+.v26-room-actions .field-rail input { min-height:28px }
+.v26-room-actions .v24-actions { bottom:24%; left:53%; right:6% }
+.v26-room-actions .v21-tower-rail { bottom:23%; left:22%; right:46% }
+.v26-room-actions .v21-tower-send { bottom:23%; left:57%; right:10% }
+.v26-room-actions .v26-cover-rail { bottom:auto; left:72%; right:3%; top:57% }
+.v26-room-actions .field-part:focus-visible>span { opacity:1 }
+.v26-room-actions .v24-pin { top:59.6%; left:81.2% }
+.v26-room-actions .v24-pin.inserted { top:56%; left:80% }
+.v26-room-actions .v24-stone-door { animation:v26-door-fall .48s cubic-bezier(.6,.05,.9,.64) both }
+.v26-room-actions .door-up .v24-stone-door { animation:none }
+.v26-room-actions .v24-wheel-aperture:not(.v26-straining):has(.v24-rotor:not(.tested)) { display:none }
+@keyframes v26-door-fall { from {transform:translateY(-98%)} to {transform:translateY(0)} }
+.v26-wheel-wedge,.v26-oiled-axle { position:absolute; pointer-events:none }
+.v26-wheel-wedge { left:13.5%; top:62.2%; width:8%; height:3.7%;
+  background:url('/assets/chapters/workboard-v12.png') 50% 40% / 240%;
+  clip-path:polygon(0 90%,96% 0,100% 95%,9% 100%); transform:rotate(2deg);
+  box-shadow:inset 0 -7px #2c2018aa; filter:brightness(.78) }
+.v26-oiled-axle { left:9.7%; top:44.4%; width:1.7%; height:5.5%; border-radius:45%; border-left:2px solid #e9c47856;
+  transform:rotate(9deg); box-shadow:0 5px 6px #0008 }
+.v26-lamp-cords { position:absolute; inset:0; width:100%; height:100% }
+.v26-cord { fill:none; stroke:#957750; stroke-width:2.8; stroke-linecap:round; filter:drop-shadow(1px 2px 1px #060504) }
+.v26-cord.main { stroke:#a78357 }
+.v26-rack-brace { position:absolute; left:86.7%; top:38%; width:1.35%; height:29%; transform:rotate(12deg);
+  transform-origin:top; background:linear-gradient(90deg,#261b12b0,transparent 35%,#0f0b07b0),url('/assets/chapters/workboard-v12.png') 58% 25% / 460% 100%;
+  border-radius:25% 17% 20% 14%; box-shadow:3px 2px 5px #0d0907b0 }
+.v26-room-actions .v24-gate-beam.lifts-on-test { animation:v26-beam-lift .75s ease-out both }
+@keyframes v26-beam-lift { 0% {translate:0 15%} 60% {translate:0 -26%} 100% {translate:0 0} }
+.v26-paper-lamp,.v26-lamp-cover { position:absolute; top:26%; width:5%; height:9%; border-radius:14%;
+  background:#11151475; transform:skewY(-6deg) }
+.v26-paper-lamp.inside { left:81.3% }
+.v26-paper-lamp.outside,.v26-lamp-cover { left:86.8% }
+.v26-paper-lamp.lit { background:radial-gradient(ellipse,#ffdc7899,#f2a13758 48%,#9f602a12 90%); mix-blend-mode:screen;
+  box-shadow:0 0 1.2cqw .3cqw #efb34b45 }
+.v26-lamp-cover { height:calc(9% * var(--cover)); background:url('/assets/crafted/cloth-dry-v2.png') center/cover;
+  filter:brightness(.52); box-shadow:inset 1px 1px 6px #080908b0 }
+.v26-north-window { position:absolute; top:28%; left:61.6%; width:4%; height:1.9%; transform:skewY(-10deg); background:#101821b5 }
+.v26-north-window.lit { background:radial-gradient(ellipse,#ffe09aaa,transparent 85%); box-shadow:0 0 .9cqw #ffbc7170;
+  animation:v25-two-flashes 1.1s both }
+.v26-room-direction { position:absolute; left:62%; top:33%; color:#d0c3aa; text-shadow:0 2px 4px #000; font-size:clamp(10px,1cqw,15px) }
+.w-scene-changes .w-light-table { position:absolute; left:6%; top:24%; width:88%; height:57%; background:none;
+  border-radius:0; overflow:visible; box-shadow:none; pointer-events:none }
+.w-scene-changes .w-light-table button { pointer-events:auto }
+.w-scene-changes .w-moving-paper { width:23%; max-width:285px; min-width:85px }
+.w-scene-changes .w-moving-paper:disabled { opacity:1!important }
+.w-scene-changes .w-old-ink { font-size:clamp(26px,4.1cqw,66px) }
+.w-scene-changes .w-surface-ink { font-size:clamp(11px,1.8cqw,25px) }
+.w-ink-cue { position:absolute; top:48%; left:53%; transform:translateX(-50%); text-align:center }
+.w-ink-cue .camp-text-button { padding:.6em .9em; background:#151b15e0 }
+.w-scene-changes .v25-room-line { pointer-events:none }
+@media(max-width:600px) {
+ .v26-room-actions .field-rail { bottom:25% }
+ .v26-room-actions .v26-cover-rail { top:55%; bottom:auto; left:67%; right:2% }
+ .v26-room-actions .field-rail input { min-height:20px }
+ .v26-room-actions .v21-tower-rail { left:10%; right:47% }
+ .v26-room-actions .v21-tower-send { left:55%; right:4% }
+}
+@media(prefers-reduced-motion:reduce) {
+ .v26-room-actions .v24-stone-door,.v26-room-actions .v24-gate-beam.lifts-on-test,.v26-north-window.lit { animation:none }
+}
+
+.v26-straining .v24-rotor { animation:v26-strained-wheel 4s ease-in-out infinite }
+@keyframes v26-strained-wheel { 0%,100%{transform:rotate(0)} 40%,52%{transform:rotate(2deg)} 63%{transform:rotate(1deg)} }
+@media(prefers-reduced-motion:reduce) { .v26-straining .v24-rotor { animation:none } }

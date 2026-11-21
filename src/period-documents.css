@@ -1,0 +1,99 @@
+/* Document surfaces carry the period style; reading controls remain outside the paper. */
+.modal-ledger{max-width:1180px!important}
+.muster-spread{position:relative;width:min(100%,calc((100dvh - 265px) * 1.6));aspect-ratio:1586/992;margin:3px auto 0;container-type:inline-size;filter:drop-shadow(0 13px 25px #0009);color:#3c3024;font-family:var(--font-manuscript)}
+.muster-ground{display:block;width:100%;height:100%;user-select:none;pointer-events:none}
+.muster-page{position:absolute;top:14%;height:69%;width:37%}
+.muster-left{left:9%}.muster-right{left:54%}
+.muster-frontispiece{position:absolute;right:3%;top:0;height:100%;writing-mode:vertical-rl;text-orientation:upright;display:flex;align-items:center;gap:2.1cqw;letter-spacing:.24em}
+.muster-frontispiece>span{font-size:1.55cqw;color:#5b4937}.muster-frontispiece h3{font-family:var(--font-manuscript);font-size:3.8cqw;font-weight:400;letter-spacing:.23em;margin:0;color:#382d23;line-height:1.3}.muster-frontispiece small{font-size:1.85cqw;letter-spacing:.22em;margin-top:1cqw;color:#503e2b}
+.muster-account{position:absolute;top:4%;right:39%;left:1%;display:flex;flex-direction:row-reverse;gap:2cqw;align-items:flex-start}
+.muster-account p{writing-mode:vertical-rl;text-orientation:upright;font-size:1.55cqw;letter-spacing:.19em;line-height:1.5;margin:0;color:#584833}
+.muster-account p:nth-child(2){margin-top:.9cqw}.muster-account p:nth-child(4){font-size:1.35cqw;margin-top:8cqw;color:#746048}
+.muster-entries{height:100%;display:flex;flex-direction:row-reverse;align-items:stretch;justify-content:space-between;padding:0 .4cqw}
+.muster-entry{position:relative;flex:0 0 19%;height:100%;padding:0;color:#493a29;text-align:initial;background:none;border:0;box-shadow:none;cursor:pointer;transition:none;isolation:isolate}
+.muster-entry:hover,.muster-entry:active{background:none;color:inherit;filter:none;box-shadow:none}
+.muster-entry:focus:not(:focus-visible){outline:0}.muster-entry:focus-visible{outline:1px dotted #5d432477;outline-offset:3px}
+.muster-name,.muster-detail,.muster-annotation{position:absolute;writing-mode:vertical-rl;text-orientation:upright;font-weight:400;line-height:1.3}
+.muster-name{right:2%;top:0;font-size:2.15cqw;letter-spacing:.19em;white-space:nowrap;color:#3d3021}
+.muster-name i{display:inline-block;height:1.35em}
+.muster-detail{left:1%;top:12%;font-size:1.32cqw;letter-spacing:.15em;color:#76634c;white-space:nowrap}
+.muster-annotation{right:7%;top:64%;font-size:1.83cqw;letter-spacing:.14em;color:#66503a;transform:rotate(-3deg)}
+.muster-annotation small{font-size:1.1cqw;color:#7e6950;letter-spacing:.03em;margin-bottom:.6em}
+.muster-entry:nth-child(2n) .muster-annotation{top:61%;transform:rotate(3deg)}
+.muster-entry:nth-child(3) .muster-annotation{top:69%;transform:rotate(-5deg)}
+.muster-entry .loss-note{color:#70503b}.luzhao-record .loss-note{color:#382a23;font-size:1.95cqw;transform:rotate(-6deg)}
+.muster-folio{position:absolute;bottom:-7%;left:45%;font-size:1.1cqw;color:#856d4f;letter-spacing:.15em}
+.muster-controls{max-width:1030px;margin:11px auto 0;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#a79d86;font-size:11px;line-height:1.7}
+.muster-controls .text-button{font-family:var(--font-manuscript);font-size:15px;color:#c8b896}
+.muster-observation{font-family:var(--font-manuscript);font-size:17px;text-align:center;color:#c4af89;margin:6px auto 0;line-height:1.8}
+
+.document-layout.period-document{display:grid;grid-template-columns:1.1fr .9fr;gap:55px;align-items:center;max-width:880px;margin:10px auto}
+.period-letter{position:relative;isolation:isolate;width:100%;max-width:410px;aspect-ratio:.84;min-height:0;padding:11% 9%;margin:auto;container-type:inline-size;font-family:var(--font-manuscript);color:#403123;transform:rotate(-1deg);background:radial-gradient(ellipse at 3% 8%,#8a683320,transparent 36%),repeating-linear-gradient(7deg,#75532708 0px,#75532708 1px,transparent 1px,transparent 3px),linear-gradient(103deg,#c8b18d,#d9c5a2 14%,#d4be97 78%,#c4a77f);box-shadow:0 14px 22px #0007,inset 0 0 25px #87613a33;clip-path:polygon(0 1%,20% 0,53% 1%,89% 0,100% 1%,99% 22%,100% 57%,99% 100%,72% 99%,49% 100%,20% 99%,1% 100%,0 70%,1% 32%)}
+.period-letter:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(179deg,transparent 48%,#5b3a1c18 49%,#f5e1bc35 49.4%,transparent 50.5%),linear-gradient(89deg,transparent 48%,#6d4e2515 49.2%,#f1dcb736 49.5%,transparent 50%);mix-blend-mode:multiply}
+.letter-ruling{position:absolute;inset:8%;border:1px solid #6b4f2838;outline:1px solid #73552c22;outline-offset:4px;pointer-events:none}
+.letter-ink{position:relative;height:100%;min-height:300px;display:flex;flex-direction:row-reverse;align-items:flex-start;justify-content:space-between;gap:4%;text-shadow:.25px .25px #59452b3b}
+.letter-ink h3,.letter-ink p,.letter-signature{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--font-manuscript);font-weight:400;line-height:1.55;letter-spacing:.13em;margin:0;color:#433324}
+.letter-ink h3{font-size:8.5cqw;letter-spacing:.2em;margin-top:0;white-space:nowrap;line-height:1.2}
+.letter-ink p{font-size:5.5cqw;margin-top:11%;white-space:nowrap}
+.letter-ink p:nth-of-type(2n){transform:rotate(.5deg)}
+.letter-signature{font-size:4.2cqw;align-self:flex-end;margin-top:30%;letter-spacing:.12em;color:#725b40;display:flex;gap:1.5cqw}
+.letter-signature small{font:inherit;white-space:nowrap}.letter-signature span{white-space:nowrap;color:#493828;font-size:4.8cqw}
+.informal-letter{max-width:345px;aspect-ratio:.93;padding:11% 12%}
+.informal-letter .letter-ruling{display:none}.informal-letter .letter-ink{min-height:260px;gap:7%}
+.informal-letter .letter-ink h3{font-size:7.5cqw;color:#72583b;margin-top:1%}
+.informal-letter .letter-ink p{font-size:9cqw;letter-spacing:.18em;margin-top:8%}
+.informal-letter .letter-signature{font-size:4.4cqw;color:#856a4a;margin-top:35%}
+.transport-letter .letter-ink h3{font-size:7.6cqw}.transport-letter .letter-ink p{font-size:5cqw;letter-spacing:.09em;margin-top:8%}.transport-letter .letter-signature{font-size:3.7cqw}
+.fragment-letter{aspect-ratio:.83;max-width:330px;transform:rotate(2deg);clip-path:polygon(2% 0,98% 1%,100% 82%,92% 86%,87% 83%,80% 90%,73% 86%,66% 96%,58% 90%,47% 98%,36% 92%,24% 97%,15% 91%,0 96%);background:radial-gradient(ellipse at 95% 92%,#642b1c6b,transparent 37%),radial-gradient(ellipse at 72% 85%,#683b2636,transparent 30%),linear-gradient(102deg,#c4aa82,#d4bd97)}
+.fragment-letter .letter-ruling{display:none}.fragment-letter .letter-ink{justify-content:center;gap:13%;padding-bottom:14%;min-height:290px}
+.fragment-letter .letter-ink p{font-size:12cqw;letter-spacing:.22em;color:#42301e;transform:rotate(-1deg)}
+.fragment-letter .letter-ink p:nth-child(2){margin-top:25%}.fragment-letter .letter-ink p:nth-child(3){margin-top:45%;font-size:13cqw;color:#3e291d}
+.fragment-letter .letter-signature{display:none}
+.document-caption h3{font-family:var(--font-manuscript);font-size:26px;font-weight:400;line-height:1.6;color:#d0c09b;margin:15px 0 20px}
+.document-caption p{font-family:var(--font-ui);font-size:14px;line-height:2.1;color:#b3b09a;margin:0 0 25px}
+.journal-content .period-document{grid-template-columns:1.1fr .85fr;gap:25px}.journal-content .period-letter{max-width:320px}.journal-content .letter-ink{min-height:240px}.journal-content .document-caption h3{font-size:22px}.journal-content .document-caption p{font-size:12px}
+@media(max-height:780px) and (min-width:781px){.muster-spread{width:min(100%,calc((100dvh - 220px) * 1.6))}.document-layout.period-document{max-width:780px;gap:40px}.period-letter{max-width:330px;padding:8% 7%}.letter-ink{min-height:270px}.informal-letter{max-width:295px}.informal-letter .letter-ink{min-height:240px}.fragment-letter{max-width:280px}.fragment-letter .letter-ink{min-height:245px}}
+@media(max-width:780px){.modal-ledger .modal-body{padding:10px 0 5px}.muster-spread{width:100%;min-width:0;margin-top:0}.muster-controls{padding:0 12px;margin-top:8px;gap:10px;font-size:10px}.muster-controls .text-button{font-size:13px}.muster-observation{font-size:13px;margin:8px 12px}.document-layout.period-document{grid-template-columns:1fr;gap:24px;margin:8px auto;max-width:480px}.period-letter{max-width:340px;padding:10% 9%}.letter-ink{min-height:285px}.informal-letter{max-width:310px}.informal-letter .letter-ink{min-height:255px}.fragment-letter{max-width:285px}.fragment-letter .letter-ink{min-height:265px}.document-caption{text-align:center;padding:0 15px}.document-caption h3{font-size:24px;margin:10px 0 14px}.document-caption p{font-size:13px;margin-bottom:20px}.journal-content .period-document{grid-template-columns:1fr}.journal-content .period-letter{max-width:300px}.journal-content .document-caption{padding:0 5px}}
+@media(max-height:540px) and (min-width:650px){.muster-spread{width:min(100%,calc((100dvh - 155px) * 1.6))}.muster-controls{max-width:650px;margin-top:2px}.muster-controls .text-button{font-size:12px;padding:3px}.muster-controls>span{font-size:9px}.muster-observation{font-size:12px;margin-top:0}.document-layout.period-document{grid-template-columns:1fr 1fr;gap:24px;margin:0 auto;max-width:650px}.period-letter{max-width:230px;padding:8%}.letter-ink,.informal-letter .letter-ink,.fragment-letter .letter-ink{min-height:185px}.document-caption{text-align:left;padding:0}.document-caption h3{font-size:21px}.document-caption p{font-size:11px;margin-bottom:13px}}
+
+/* Optional optical enlargement keeps the folio itself intact on narrow screens. */
+.muster-viewport{overflow:auto;max-height:calc(100dvh - 230px);scrollbar-width:thin;scrollbar-color:#88704a55 transparent}.muster-viewport.magnified .muster-spread{width:1250px;max-width:none;min-width:1250px;margin:0}.muster-controls{flex-wrap:wrap}.muster-controls>span{margin-left:auto}
+@media(max-width:780px){.muster-viewport{max-height:65dvh}.muster-viewport.magnified .muster-spread{width:900px;min-width:900px}.muster-controls>span{width:100%;font-size:10px}.muster-controls .text-button{padding:3px 0}}
+
+.muster-right.page-turn{animation:fade-in .35s ease}
+
+/* Painted paper originals replace flat CSS sheets and geometric tear edges. */
+.period-letter{aspect-ratio:2/3;max-width:360px;clip-path:none;background:transparent url('/assets/crafted/paper-leaf-blank-v3.png') center/100% 100% no-repeat;box-shadow:none;filter:drop-shadow(0 12px 18px #0007);padding:12% 10%}
+.period-letter:before{display:none}.letter-ruling{inset:8.5% 8%;border-color:#6b4f282b;outline-color:#73552c16}
+.informal-letter{aspect-ratio:.75;max-width:310px;padding:12% 13%}
+.fragment-letter{aspect-ratio:.605;max-width:285px;clip-path:none;background:transparent url('/assets/crafted/torn-letter-blank-v3.png') 50% 53.1%/212.9% 193% no-repeat;padding:12% 10%;transform:rotate(1deg)}
+.fragment-letter .letter-ink{min-height:285px;padding-bottom:4%;gap:10%}.fragment-letter .letter-ink p{font-size:12cqw}.fragment-letter .letter-ink p:nth-child(3){font-size:12.5cqw}
+@media(max-height:780px) and (min-width:781px){.period-letter{max-width:290px;padding:9% 8%}.letter-ink{min-height:255px}.informal-letter{max-width:265px}.fragment-letter{max-width:240px}.fragment-letter .letter-ink{min-height:255px}}
+@media(max-width:780px){.period-letter{max-width:300px;padding:12% 10%}.informal-letter{max-width:285px}.fragment-letter{max-width:260px}.fragment-letter .letter-ink{min-height:275px}}
+@media(max-height:540px) and (min-width:650px){.period-letter{max-width:210px;padding:8%}.letter-ink,.informal-letter .letter-ink,.fragment-letter .letter-ink{min-height:180px}.fragment-letter{max-width:185px}}
+
+/* Keep actual puzzle text readable within the paper's content box. */
+.letter-ink h3{font-size:clamp(25px,10.5cqw,34px)}.letter-ink p{font-size:clamp(17px,6.7cqw,23px)}.letter-signature{font-size:clamp(12px,5cqw,16px)}.letter-signature span{font-size:clamp(13px,5.5cqw,18px)}
+.informal-letter .letter-ink h3{font-size:clamp(19px,8.5cqw,26px)}.informal-letter .letter-ink p{font-size:clamp(25px,11cqw,32px)}.informal-letter .letter-signature{font-size:clamp(12px,5.5cqw,16px)}
+.transport-letter .letter-ink h3{font-size:clamp(24px,9.2cqw,32px)}.transport-letter .letter-ink p{font-size:clamp(17px,6.2cqw,22px)}.transport-letter .letter-signature{font-size:clamp(12px,4.8cqw,16px)}
+.fragment-letter .letter-ink p,.fragment-letter .letter-ink p:nth-child(3){font-size:clamp(26px,14cqw,35px)}
+@media(max-height:540px) and (min-width:650px){.letter-ink h3{font-size:20px}.letter-ink p,.transport-letter .letter-ink p{font-size:13px}.letter-signature,.letter-signature span{font-size:10px}.informal-letter .letter-ink h3{font-size:16px}.informal-letter .letter-ink p{font-size:20px}.informal-letter .letter-signature{font-size:10px}.transport-letter .letter-ink h3{font-size:19px}.fragment-letter .letter-ink p,.fragment-letter .letter-ink p:nth-child(3){font-size:23px}}
+
+/* The register uses brush calligraphy, with small stable movements of the pen. */
+.ink-filter-defs{position:absolute;pointer-events:none;overflow:hidden}
+.muster-page,.muster-frontispiece h3{font-weight:400;text-shadow:none;mix-blend-mode:multiply}
+.muster-page{font-family:'Gucheng Readable Ink',var(--font-manuscript)}
+.muster-frontispiece h3{font-family:'Gucheng Book Ink',var(--font-manuscript)}
+.muster-page{filter:url(#ledger-ink-v4)}
+.ink-glyph{display:inline-flex;align-items:center;justify-content:center;writing-mode:horizontal-tb;text-orientation:upright;vertical-align:middle;width:1em;height:1.05em;line-height:1;letter-spacing:0;font-size:var(--pen-size);opacity:var(--pen-alpha);transform:translateX(var(--pen-x)) rotate(var(--pen-turn));transform-origin:45% 60%;font-weight:400}
+.muster-frontispiece{gap:1.65cqw}.muster-frontispiece h3{font-size:4.5cqw;letter-spacing:0;color:#3c2d1d;transform:rotate(.8deg)}
+.muster-frontispiece>span{font-size:1.8cqw;letter-spacing:0;color:#5c4931;transform:translateX(.1cqw) rotate(-1deg)}.muster-frontispiece small{font-size:2.05cqw;letter-spacing:0;transform:rotate(-1.2deg)}
+.muster-account{gap:1.75cqw;right:39%}.muster-account p{font-size:1.75cqw;line-height:1.2;letter-spacing:0;color:#66513a;transform:rotate(-.7deg)}.muster-account p:nth-child(2){margin-top:1.1cqw;transform:rotate(.6deg)}.muster-account p:nth-child(3){margin-top:.35cqw;transform:rotate(-.9deg)}.muster-account p:nth-child(4){font-size:1.55cqw;margin-top:8.3cqw;color:#7a664b;transform:rotate(.4deg)}
+.muster-name{font-size:2.45cqw;line-height:1.1;letter-spacing:0;color:#45331e;top:.6%;transform:rotate(-.5deg)}.muster-name i{height:1.1em}
+.muster-entry:nth-child(2) .muster-name{top:1.8%;transform:rotate(.6deg)}.muster-entry:nth-child(3) .muster-name{top:-.2%;transform:rotate(-.8deg)}.muster-entry:nth-child(4) .muster-name{top:1.1%;transform:rotate(.4deg)}.muster-entry:nth-child(5) .muster-name{top:.3%;transform:rotate(-.3deg)}
+.muster-detail{font-size:1.5cqw;letter-spacing:0;top:14%;color:#7d674a;transform:rotate(.8deg)}.muster-entry:nth-child(2n) .muster-detail{top:15.5%;transform:rotate(-1deg)}
+.muster-annotation{font-size:2.1cqw;line-height:1.1;letter-spacing:0;color:#755b3d;top:63%;transform:rotate(-2deg)}.muster-annotation small{font-size:1.25cqw;letter-spacing:0;margin-bottom:.6em;color:#88704f}
+.muster-entry .loss-note{color:#705237}.luzhao-record .loss-note{color:#302319;font-size:2.3cqw;transform:rotate(-4deg)}
+.muster-folio{font-size:1.25cqw;letter-spacing:0;color:#8c7555}
+
+.ink-text{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}.ink-glyph{user-select:none}

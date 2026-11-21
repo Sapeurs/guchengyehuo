@@ -1,0 +1,38 @@
+.w-focus-c1-p3 .w-room-frame{position:relative;isolation:isolate}
+.w-focus-c1-p3 .w-object-stage{position:absolute;inset:0;padding:0;overflow:hidden;animation:none;display:block}
+.c1-bottom-scene{position:absolute;inset:0;overflow:hidden;--bottom-travel:0}
+.c1-bottom-base,.c1-bottom-open{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.c1-bottom-open{opacity:var(--bottom-travel)}
+.c1-bottom-bar{position:absolute;left:49.8%;top:29.8%;width:36.8%;height:14.4%;z-index:3;pointer-events:none;transform:translate(-50%,12%) rotate(-6deg);opacity:1;transition:transform .4s ease,opacity .4s ease;filter:drop-shadow(0 4px 3px #0009)}
+.c1-bottom-bar.locked{transform:none;opacity:1}
+.c1-bottom-bar svg{width:100%;height:100%;overflow:visible}
+.c1-bottom-keepers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.c1-bottom-part,.bottom-drag-hit{position:absolute;border:0;background:transparent;color:#e1d2b1;z-index:5;cursor:pointer;touch-action:none}
+.bottom-bar-control{left:56%;top:28%;width:27%;height:18%}
+.bottom-peg-control{left:77%;top:72%;width:9%;height:10%}
+.bottom-lid-control{left:38%;top:12%;width:45%;height:13%}
+.bottom-drag-hit{left:43%;top:81%;width:38%;height:11%;cursor:ew-resize}
+.c1-bottom-part span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;opacity:0;background:#0b1813dd;border:1px solid #bc9f6655;padding:6px 10px;font:clamp(11px,1.1vw,17px) 'Gucheng Field UI',sans-serif;transition:opacity .18s}
+.c1-bottom-part:focus-visible span,.observing .c1-bottom-part span{opacity:1}
+.observing .c1-bottom-part:after,.c1-bottom-part:focus-visible:after{content:'';position:absolute;inset:0;border:1px solid #c1a56c;border-radius:35%;box-shadow:0 0 12px #bdaa6444}
+.bottom-peg-control.peg-out i{position:absolute;left:40%;top:35%;width:40%;height:13%;background:linear-gradient(#9b7c50,#473421);transform:rotate(-30deg);box-shadow:1px 4px 3px #0009}
+.bottom-range{position:absolute;z-index:7;left:5%;top:64%;width:26%;display:grid;gap:12px;padding:12px 15px;color:#d6c7a8;background:#0d1712d9;border:1px solid #aa956d44;font:clamp(10px,1.05vw,16px) 'Gucheng Field UI',sans-serif}
+.bottom-range input{width:100%;min-height:32px;accent-color:#b69c65;cursor:ew-resize;touch-action:none}
+.w-focus-c1-p3 .w-focus-header{position:absolute;inset:0 0 auto;z-index:10;padding:16px 5%;box-sizing:border-box;background:linear-gradient(#07100ddd,transparent)}
+.w-focus-c1-p3 .w-room-caption{position:absolute;left:5%;top:39%;bottom:auto;width:28%;z-index:8;padding:12px 15px;background:#07110cce;border-left:2px solid #a58f58;pointer-events:none}
+.w-focus-c1-p3 .w-room-caption p{font-size:clamp(12px,1.4vw,21px);line-height:1.8;margin:.5em 0}
+.w-focus-c1-p3 .w-focus-footer{position:absolute;z-index:10;bottom:0;left:5%;right:5%;width:90%;background:linear-gradient(transparent,#07100def);padding:12px 0}
+.w-focus-c1-p3 .w-gesture-note{display:none}
+.bottom-confirmed{position:absolute;left:5%;top:67%;z-index:7;background:#0d1712dc;border:1px solid #b39a6544;color:#dec696;padding:10px 15px;font:clamp(12px,1.4vw,22px) 'Gucheng Field Manuscript',serif}
+.experiment-done .c1-bottom-part{pointer-events:none}
+.crate-world:not(.is-open) .crate-bottom-link{display:none}
+.w-focus-c1-p3 .w-room-pouch:empty{display:none}
+.moment-c1-p3 .field-moment-caption{left:5%;right:auto;top:38%;bottom:auto;width:30%;padding:15px 18px;background:#07110cdd;border-left:2px solid #a58f58}
+.moment-c1-p3 .field-moment-caption p{font-size:clamp(16px,1.8vw,27px);line-height:1.7}
+.moment-c1-p3 .field-moment-caption>span{line-height:1.8}
+.moment-c1-p3 .field-moment-caption button{display:block;position:static;margin-top:16px}
+.bottom-range input{-webkit-appearance:none;appearance:none;height:28px;background:transparent}
+.bottom-range input::-webkit-slider-runnable-track{height:8px;background:linear-gradient(#382b1c,#81643d,#2d2419);border:1px solid #b5985c77;border-radius:2px;box-shadow:inset 0 2px 4px #0008}
+.bottom-range input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:24px;margin-top:-9px;background:linear-gradient(90deg,#695033,#b4945d,#695033);border:1px solid #c4ac73;border-radius:3px;box-shadow:1px 3px 4px #0008}
+@media(max-height:500px){.w-focus-c1-p3 .w-room-caption{top:29%;font-size:12px;padding:8px 10px}.w-focus-c1-p3 .w-room-caption p{font-size:12px;line-height:1.65}.bottom-range{top:64%;padding:6px 10px;gap:2px}.w-focus-c1-p3 .w-focus-header{padding-top:8px}.w-focus-c1-p3 .w-focus-footer{padding-bottom:5px}}
+@media(prefers-reduced-motion:reduce){.c1-bottom-bar,.c1-bottom-part span{transition:none}}

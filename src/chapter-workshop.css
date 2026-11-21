@@ -1,0 +1,56 @@
+/* Each experiment keeps the room scale and makes the tested consequence visible. */
+.field-focus:is(.field-c2-p5,.field-c3-p3,.field-c3-p5,.field-c4-p6,.field-c5-p4,.field-c6-p3) .field-stage{inset:0;height:100%}
+.v24-artwork:after{content:'';position:absolute;inset:0;background:linear-gradient(#030a0b66,transparent 22%,transparent 65%,#040c0be8);pointer-events:none}
+.field-focus:has(.v24-artwork) .field-not-ready{filter:none}
+.field-focus:has(.v24-artwork) .field-caption{left:12%;right:12%;bottom:12%}
+.field-focus .v24-actions{bottom:27%;left:15%;right:15%;z-index:8;gap:1.5cqw}
+.field-focus .field-stage:has(.v24-artwork):has(.field-rail) .v24-actions{bottom:27%;left:51%;right:5%}
+.field-focus .field-stage:has(.v24-artwork):has(.field-local-actions) .v24-rail{bottom:27%;left:10%;right:55%;z-index:8}
+.v24-actions .field-command{font-size:clamp(10px,1.1cqw,16px)!important;padding:8px 12px;min-height:34px}
+.v24-rail>span{text-shadow:0 2px 4px #000}
+.v24-label{position:absolute;transform:translateX(-50%);font:clamp(10px,1.15cqw,16px) 'Gucheng Field UI',sans-serif;text-shadow:0 2px 4px #000;color:#c4b494;white-space:nowrap}
+.v24-lamp{position:absolute;top:20%;width:6%;height:14%;transform:translateX(-50%);border-radius:44%;background:#efbc6110;mix-blend-mode:screen;transition:background .3s,box-shadow .3s}
+.v24-lamp.on{background:radial-gradient(#fff3bbdd,#edb34388 42%,#e6aa2910 80%);box-shadow:0 0 2cqw .5cqw #efb34b55}
+.v24-grip{position:absolute;width:2.1%;height:7%;background:url('/assets/chapters/workboard-v12.png') center/800% 400%;border:1px solid #8d7049;border-radius:18%;box-shadow:3px 4px 4px #0009;transform:translateX(-50%)}
+.v24-checks{position:absolute;left:28%;right:28%;top:42%;display:flex;justify-content:space-between;color:#bfb393;font:clamp(9px,.95cqw,14px) 'Gucheng Field UI',sans-serif;pointer-events:none;text-shadow:0 2px 4px #000}
+.v24-checks span{max-width:35%;text-align:center}
+.v24-rays{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen}
+.v24-east-window{position:absolute;left:25.7%;top:27.9%;width:1.1%;height:2%;background:transparent}
+.v24-east-window.on{background:#eecb80;box-shadow:0 0 12px 5px #e9b85466;animation:v21-answer .8s both}
+.v24-guide{position:absolute;left:46%;top:51%;width:8%;height:1.2%;background:url('/assets/chapters/workboard-v12.png') center/cover;box-shadow:2px 3px 4px #0009;transform:rotate(16deg);transform-origin:left;transition:transform .5s}
+.v24-guide.inward{transform:rotate(-22deg)}
+.v24-kindled{position:absolute;left:37%;top:56.5%;width:4%;height:8%;background:#090d09dd}
+.v24-kindled.on{background:radial-gradient(#e8b85b99,transparent);box-shadow:0 0 25px #edb75877}
+.v24-sprite{position:absolute;overflow:hidden;filter:brightness(.8) drop-shadow(3px 4px 3px #000b);pointer-events:none}
+.v24-door-aperture{position:absolute;left:51.6%;top:19.4%;width:23.1%;height:54.8%;overflow:hidden}
+.v24-stone-door{inset:0;width:100%;height:100%;transition:transform .65s ease-in-out;filter:brightness(.6) drop-shadow(0 6px 5px #000)}
+.v24-trestle{left:44%;top:59%;width:30%;height:22%;transition:transform .25s}
+.v24-prop{left:71%;top:21.5%;width:3.4%;height:53%;transition:opacity .3s}
+.v24-gate-beam{position:absolute;left:46.5%;width:41%;height:8.7%;filter:brightness(.7) drop-shadow(4px 9px 5px #0009);transition:top .45s;transform:translateY(14%) rotate(3deg)}
+.v24-pin{position:absolute;left:81.8%;top:52%;width:1.2%;height:6%;border:1px solid #a39b75;background:linear-gradient(90deg,#242923,#91846b,#252a22);transform:rotate(80deg);box-shadow:3px 5px 5px #0009}
+.v24-pin.inserted{left:78.5%;top:56%;transform:none}
+.v24-wheel-test{position:absolute;left:4%;top:31%;width:26%;height:35%;border:2px solid transparent;border-radius:50%;pointer-events:none}
+.v24-wheel-test.tested{border-right-color:#c9b18b66;border-top-color:#c9b18b22;animation:v24-test-turn 1s ease-out both}
+.v24-private-letter{position:absolute;left:25%;right:25%;top:0;min-height:75%;padding:3cqw 4cqw;background:url('/assets/crafted/paper-leaf-blank-v3.png') center/100% 100%;color:#46362a;box-shadow:8px 9px 15px #0008;font:clamp(15px,2cqw,28px)/1.6 'Gucheng Field Ink',serif;transform:rotate(-3deg)}
+.v24-private-letter h3{font-size:1.2em;font-weight:400;margin:0 0 .8em}.v24-private-letter p{margin:.5em 0}.v24-letter-sign{text-align:right}.v24-fold{margin-top:2em;border-top:1px solid #806b4d66;padding-top:.5em;font-size:.65em;color:#80745c}
+.field-c3-p4 .v24-actions,.field-c5-p6 .v24-actions,.field-c6-p4 .v24-actions{bottom:-10%}
+.v24-evidence-pieces{position:absolute;inset:7% 6% 0;display:flex;justify-content:center;gap:5%;align-items:center}
+.v24-evidence-piece{width:30%;height:70%;padding:2cqw;background:url('/assets/crafted/paper-leaf-blank-v3.png') center/100% 100%;color:#4d3828;transform:rotate(-5deg);box-shadow:5px 8px 10px #0008;text-align:center;transition:transform .4s}
+.v24-evidence-piece strong,.v24-evidence-piece span,.v24-evidence-piece small{display:block}.v24-evidence-piece strong{font:3cqw 'Gucheng Field Ink',serif}.v24-evidence-piece span{font:1.5cqw/1.7 'Gucheng Field Manuscript',serif;margin-top:1.2em}.v24-evidence-piece small{font:1cqw 'Gucheng Field UI',sans-serif;margin-top:1.5em;color:#6d624b}
+.v24-evidence-piece.placed{transform:rotate(2deg) translateY(9%)}
+.v24-paper-bundle{position:absolute;inset:9% 21%;padding:4cqw;text-align:center;color:#5e422d;background:url('/assets/crafted/paper-leaf-blank-v3.png') center/100% 100%;box-shadow:6px 9px 12px #0008;transform:rotate(-3deg);font:2cqw/2 'Gucheng Field Manuscript',serif}
+.v24-paper-bundle>span{font:3cqw 'Gucheng Field Ink',serif}.v24-paper-bundle.sealed:after{content:'';position:absolute;left:49%;top:0;bottom:0;border-left:4px double #675136;transform:rotate(5deg)}
+.moment-c3-p5 .v24-east-window{z-index:2}.moment-c2-p5 .v24-lamp{z-index:2}.moment-c5-p4 .v24-gate-beam{z-index:2}
+@keyframes v24-test-turn{from{transform:rotate(0)}to{transform:rotate(80deg)}}
+@media(max-height:540px){.v24-actions .field-command{min-height:29px;padding:5px 8px}.v24-checks{font-size:9px}.v24-private-letter{padding:2cqw 4cqw}.v24-private-letter p{margin:.2em 0}}
+@media(prefers-reduced-motion:reduce){.v24-artwork *{transition:none!important;animation:none!important}}
+
+.v24-moment-rig{position:absolute;inset:0;z-index:0}.v24-moment-rig>button,.v24-moment-rig>.v24-checks{display:none}.v24-moment-rig .v24-artwork:after{display:none}
+
+.v24-rig .v21-rope-shadow{stroke-width:5}.v24-rig .v21-rope-body{stroke-width:3.3}.v24-rig .v21-rope-fibres{stroke-width:1;stroke-dasharray:1 3}
+
+.v24-hoist-ropes{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}.v24-hoist-ropes path{fill:none;stroke-linecap:round}.v24-hoist-ropes .v21-rope-shadow{stroke-width:6}.v24-hoist-ropes .v21-rope-body{stroke-width:3.8}.v24-hoist-ropes .v21-rope-fibres{stroke-width:1;stroke-dasharray:1 3}
+.v24-wheel-aperture{position:absolute;left:3%;top:30%;width:29%;height:36%;clip-path:ellipse(48% 48% at 50% 50%);overflow:hidden;pointer-events:none}.v24-rotor{position:absolute;left:-10.35%;top:-83.34%;width:344.83%;height:277.78%;max-width:none;transform-origin:17.5% 48%;object-fit:fill}.v24-rotor.tested{animation:v24-hoist-turn 1.1s ease-in-out both}
+@keyframes v24-hoist-turn{0%{transform:rotate(0)}40%{transform:rotate(8deg)}100%{transform:rotate(0)}}
+.v24-broken-tooth{height:7cqw;max-height:40%;width:auto;filter:drop-shadow(3px 4px 3px #0007)}.v24-evidence-piece:has(.v24-broken-tooth){background:transparent;color:#dac6a0;box-shadow:none}.v24-evidence-piece:has(.v24-broken-tooth) small{color:#ad9d7c}
+@media(prefers-reduced-motion:reduce){.v24-rotor.tested{animation:none}}

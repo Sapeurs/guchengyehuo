@@ -1,0 +1,62 @@
+/* Physical objects share painted cutouts across the room, bag and acquisition. */
+.item-image{display:block;object-fit:contain;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.hotspot:hover,.hotspot:active{background:transparent;border:0;box-shadow:none;filter:none;transform:none}
+.hotspot:focus:not(:focus-visible){outline:none}
+.scene-item{position:relative;z-index:0;filter:brightness(.72) saturate(.8) drop-shadow(2px 5px 3px #0008)}
+.scene-token{width:85%;height:100%;transform:rotate(55deg) scaleY(.73)}
+.scene-cloth-art{width:96%;height:98%;transform:rotate(8deg) scaleY(.76);filter:brightness(.78) saturate(.65) drop-shadow(2px 6px 3px #0008)}
+.wall-paper{width:90%;height:94%;display:block;position:relative;transform:rotate(-5deg);filter:brightness(.68) saturate(.7) drop-shadow(2px 3px 2px #0009);pointer-events:none}
+.wall-paper>img{width:100%;height:100%;object-fit:fill;display:block;user-select:none}
+.wall-paper:after{content:'';position:absolute;left:48%;top:8%;width:4px;height:4px;border-radius:50%;background:#2d2417;box-shadow:0 1px 1px #c4ae6344}
+.detention-prop .wall-paper{transform:rotate(4deg);filter:brightness(.64) saturate(.65) drop-shadow(2px 3px 2px #0009)}
+
+.inventory-dock{width:max-content;max-width:min(94vw,760px);min-width:285px;left:3%;bottom:12%;padding:16px 20px 10px;border:1px solid #8c76555c;border-radius:5px 8px 4px 7px;background-color:#221e17;background-image:repeating-linear-gradient(0deg,transparent 0 2px,#90836a0b 2px 3px),repeating-linear-gradient(90deg,transparent 0 2px,#9784650a 2px 3px),radial-gradient(ellipse at 45% 0,#55483270,transparent 85%);outline:1px dashed #a18a5d23;outline-offset:-7px;box-shadow:0 14px 40px #000b,inset 0 0 40px #080a0799}
+.inventory-heading{border-bottom:1px solid #a18d6133;margin:0 0 7px;padding:0 0 12px;gap:20px;color:#c9bc98}
+.inventory-heading>span{font-family:var(--font-book);font-size:18px;letter-spacing:.13em}
+.inventory-heading>button{color:#b1a285;min-width:28px;min-height:28px}
+.inventory{display:flex;gap:5px;padding:3px 0 7px;max-width:100%;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#80714d55 transparent}
+.inventory-slot{flex:0 0 105px;width:105px;min-width:105px;height:107px;padding:5px 7px 8px;border:0;background:transparent;box-shadow:none;position:relative;overflow:hidden}
+.inventory-slot:after{content:'';position:absolute;right:-3px;top:20%;height:60%;border-right:1px dashed #a3926422;pointer-events:none}
+.inventory-slot:last-child:after{display:none}
+.inventory-slot>.item-image{width:93px;height:91px;filter:brightness(.88) drop-shadow(2px 4px 3px #0009);transition:transform .18s,filter .18s}
+.inventory-slot>.item-key{width:102px;height:75px;transform:rotate(-12deg)}
+.inventory-slot>.item-order{width:72px;height:91px;transform:rotate(4deg)}
+.inventory-slot>.item-manifest{width:95px;height:86px;transform:rotate(-4deg)}
+.inventory-slot.selected{border:0;background:radial-gradient(ellipse at 50% 95%,#cba55e13,transparent 73%);box-shadow:none}
+.inventory-slot:hover{background:transparent;box-shadow:none}
+.inventory-slot.selected>.item-image{filter:brightness(1) drop-shadow(2px 5px 3px #0009);transform:translateY(-3px)}
+.inventory-slot.selected>.item-key{transform:translateY(-3px) rotate(-12deg)}
+.selection-mark{position:absolute;bottom:1px;left:30%;right:30%;height:1px;background:linear-gradient(90deg,transparent,#d1b37a,transparent);opacity:0}
+.selected .selection-mark{opacity:1}
+.inventory-slot:focus-visible{outline:1px dotted #c1a77a88;outline-offset:-4px}
+.inventory-tools{min-height:37px;margin:4px 0 0;padding:7px 0 0;border-top:1px solid #a18d612b;color:#c3b58f;font-family:var(--font-manuscript);font-size:17px;gap:20px}
+.inventory-tools>small{font-family:var(--font-ui);font-size:10px;color:#92866c;letter-spacing:.05em}
+.inventory-tools .text-button{font-family:var(--font-ui);font-size:11px;padding:6px 0;color:#b7ac89}
+.empty-inventory{font-size:12px;line-height:1.9;color:#a3987c;max-width:280px;padding:12px 0}
+
+.selected-cue{padding:5px 10px 5px 5px;gap:7px;background:linear-gradient(90deg,#191d14e8,#191d1499);border:0;border-bottom:1px solid #a58c5b44;box-shadow:0 5px 20px #0002;font-size:11px;color:#c4b58f}
+.selected-cue>.item-image{width:39px;height:36px;filter:brightness(.9) drop-shadow(1px 3px 2px #0009)}
+#held-item{position:fixed;left:0;top:0;width:61px;height:53px;z-index:39;pointer-events:none;opacity:0;visibility:hidden;transform:translate(14px,18px);filter:drop-shadow(3px 6px 3px #0009)}
+#held-item.visible{opacity:.9;visibility:visible}
+#held-item>.item-image{width:100%;height:100%;object-fit:contain}
+.acquired-item{grid-template-columns:50px auto;padding:12px 28px;gap:5px 15px;background:linear-gradient(100deg,#201d16f5,#1c2118f2);border-color:#9c845750}
+.acquired-item>.item-image{grid-row:span 2;width:50px;height:49px;filter:drop-shadow(2px 3px 2px #0008)}
+.primary-button>.item-image,.secondary-button>.item-image{width:30px;height:28px}
+.dipping-cloth.item-image{background:none;object-fit:contain;border-radius:0;width:31%;height:33%}
+.loot-key>.item-image{width:86%;height:100%;object-fit:contain;transform:rotate(-7deg);filter:brightness(.78) drop-shadow(1px 4px 2px #000a)}
+.loot-papers>.item-image{position:absolute;left:8%;top:2%;height:100%;width:90%;filter:brightness(.8) drop-shadow(2px 4px 2px #0009);transform:rotate(-6deg)}
+.loot-papers>.item-order{left:40%;top:-6%;width:58%;height:116%;transform:rotate(7deg);z-index:-1;filter:brightness(.7) drop-shadow(2px 3px 2px #0008)}
+.loot-papers>.item-manifest{z-index:1}
+@media(max-width:780px){.inventory-dock{left:3%;bottom:12%;padding:12px 15px 8px;min-width:250px;max-width:94vw}.inventory-heading{padding-bottom:8px;margin-bottom:4px}.inventory-heading>span{font-size:16px}.inventory{gap:4px}.inventory-slot{width:86px;min-width:86px;flex-basis:86px;height:90px;padding:4px}.inventory-slot>.item-image{width:79px;height:78px}.inventory-slot>.item-key{width:84px;height:61px}.inventory-slot>.item-order{width:62px;height:78px}.inventory-slot>.item-manifest{width:80px;height:74px}.inventory-tools{font-size:15px;min-height:34px}.inventory-tools .text-button{font-size:10px}.selected-cue{top:16%;font-size:10px;max-width:65%;padding:3px 7px 3px 3px;gap:4px}.selected-cue>.item-image{width:30px;height:28px}.wall-paper:after{width:3px;height:3px}}
+@media(max-height:540px){.inventory-dock{bottom:15%;padding-top:10px}.inventory-heading{padding-bottom:6px}.inventory-slot{height:78px}.inventory-slot>.item-image{height:70px}.inventory-tools{min-height:30px;padding-top:3px}}
+@media(pointer:coarse){#held-item{display:none}}
+
+/* Inspection uses the same paired token cutouts, including the scratchable dirty state. */
+.crafted-token>img{mask-image:none;border-radius:0}#grime{inset:0;width:100%;height:100%;border-radius:0;clip-path:none}.crafted-token.dirty .engraving{visibility:hidden}.crafted-token.dirty.grime-ready .engraving{visibility:visible}
+
+/* Allow for transparent safety margins while keeping visible objects comparable in size. */
+.inventory-slot>.item-image{flex:none}.inventory-slot>.item-tag{width:112px;height:118px}.inventory-slot>.item-cloth,.inventory-slot>.item-wetcloth{width:120px;height:102px}.inventory-slot>.item-order{width:144px;height:170px}.inventory-slot>.item-manifest{width:112px;height:103px}
+@media(max-width:780px){.inventory-slot>.item-tag{width:95px;height:103px}.inventory-slot>.item-cloth,.inventory-slot>.item-wetcloth{width:100px;height:91px}.inventory-slot>.item-order{width:126px;height:146px}.inventory-slot>.item-manifest{width:96px;height:88px}}
+
+/* The ordinary soldier carries a wood name tag, with ink rather than metallic engraving. */
+.engraving{font-family:var(--font-manuscript);color:#251b12;text-shadow:.3px .4px #110e0a44}.engraving b{font-family:var(--font-manuscript)}

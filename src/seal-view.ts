@@ -1,0 +1,17 @@
+import type {Draft} from './campaign-state';
+export function militaryStamp(id:string){
+ const outer='M13 13H87V66M87 82V87H13Z';
+ const crack='M54 57L61 60L65 58L72 63L79 61';
+ return `<svg class="c1-stamp" viewBox="0 0 100 100" aria-hidden="true"><defs><mask id="seal-wear-${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="white"/><path d="${crack}" stroke="black" stroke-width="3.2" fill="none"/><path d="M18 14l3 2m58 71l4-1M13 42l2 2" stroke="black" stroke-width="1.2"/></mask><filter id="stamp-grain-${id}"><feTurbulence baseFrequency=".6" numOctaves="2" seed="7"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".3" intercept=".7"/></feComponentTransfer><feComposite in="SourceGraphic" operator="in"/></filter></defs><g color="inherit" mask="url(#seal-wear-${id})" filter="url(#stamp-grain-${id})"><path d="${outer}" fill="none" stroke="currentColor" stroke-width="3.4"/><path d="M20 20H80V80H20Z" fill="none" stroke="currentColor" stroke-width=".8" opacity=".7"/><g fill="currentColor" stroke="currentColor" stroke-width=".45" font-family="Gucheng Campaign Manuscript,serif" font-size="29" text-anchor="middle"><text x="35" y="45" transform="rotate(-1 35 34)">军</text><text x="66" y="45">务</text><text x="35" y="75">关</text><text x="66" y="75" transform="rotate(1 66 65)">防</text></g></g></svg>`;
+}
+/** Compare the two actual documents. There is no invented impression selector. */
+export function sealView(d:Draft,done=false,hasReference=true){
+ const mask=Number(d[2]),overlay=hasReference&&Number(d[3])===1;
+ const features=[[87,74,'右侧外框'],[34,35,'左上印文'],[35,66,'左下印文'],[64,59,'右下印文']] as const;
+ return `<div class="w-seal-comparison w-readable-seals ${overlay?'overlaid':''} ${hasReference?'':'awaiting-reference'}">${hasReference?`<article class="w-reference-paper" data-seal-drag="true" tabindex="${done?-1:0}" role="group" aria-label="拘令留印，拖到右侧旧封签上对照"><small>拘令上的印</small><div class="w-reference-print">${militaryStamp('reference')}</div><p>六月十一日 · 赵廷岳札付<br>仰将陆昭暂行看守</p></article>`:`<div class="w-reference-space"><span>旧印似曾相识</span><p>可将随身原件放在这里</p></div>`}<article class="w-candidate-paper"><small>箱底旧封签上的印</small><div class="w-print-area"><div class="w-residual-print">${militaryStamp('old-seal')}</div>${overlay?`<div class="w-tracing-print">${militaryStamp('tracing')}</div>`:''}${features.map(([x,y,label],i)=>`<button class="w-defect ${hasReference&&mask&(1<<i)?'marked':''}" data-c="seal-feature:${i}" style="left:${x}%;top:${y}%" aria-label="察看并标记${label}" aria-pressed="${!!(hasReference&&mask&(1<<i))}" ${done||!hasReference?'disabled':''}><i></i></button>`).join('')}</div><p>甲三箱底所得 · 原件</p></article>${hasReference?`<button data-c="seal-overlay" class="w-overlay-action" aria-pressed="${overlay}">${overlay?'分开看原件':'对照两份原件'}</button>`:''}<p class="w-seal-purpose">${done?'同一枚印，原来还留在另一件事上。':hasReference?'这两份原件之间，能否找出确切的联系？':''}</p>${overlay?'<span class="w-seal-key"><i></i>朱红：旧封签　<span></span>淡灰：拘令留印</span>':''}</div>`;
+}
+
+/** This is the same carried document seen before the old seal is discovered. */
+export function warrantView(){
+ return `<article class="w-carried-warrant" aria-label="随身拘令原件"><small>六月十一日</small><h3>札付</h3><div class="w-warrant-lines"><p>为查拿事</p><p>仰将归营哨探陆昭</p><p>暂行看守听候查讯</p><p>毋得擅纵</p></div><footer><span>副将赵廷岳</span><div class="w-warrant-print">${militaryStamp('carried')}</div></footer></article>`;
+}

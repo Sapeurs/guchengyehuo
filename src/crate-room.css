@@ -1,0 +1,80 @@
+.crate-room{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:#080e0c;animation:crate-arrive .42s ease-out;color:#e5d1a9;font-family:'Gucheng Campaign UI',var(--font-ui)}
+.crate-world{position:relative;width:min(100vw,calc(100dvh * 1672 / 941));aspect-ratio:1672/941;container-type:inline-size;overflow:hidden;isolation:isolate;--lever:0;--bar:0;--lid:0;--open-blend:0;--resist:0;--lining-drag:0;touch-action:none}
+.crate-world>img,.crate-lid-skin,.crate-fixed-keepers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;user-select:none}
+.crate-open-painting{opacity:var(--open-blend)}
+.crate-body-painting{opacity:calc(1 - var(--open-blend))}
+.crate-lid-skin{opacity:calc(1 - var(--open-blend));transform-origin:48% 15%;transform:perspective(1200px) rotateX(calc(var(--lid) * -65deg)) translateY(calc(var(--lid) * -11cqw));z-index:2}
+.crate-moving-bar{position:absolute;left:49.8%;top:29.8%;width:36.8%;height:14.4%;z-index:3;pointer-events:none;opacity:calc(1 - var(--open-blend));transform:translate(calc(var(--bar) * -34cqw + var(--resist) * -.28cqw),calc(var(--bar) * 3.4cqw - var(--lever) * .55cqw));filter:drop-shadow(0 5px 3px #0009)}
+.crate-moving-bar svg{display:block;width:100%;height:100%;overflow:visible}
+.crate-fixed-keepers{z-index:4;opacity:calc(1 - var(--open-blend))}
+.crate-pry-art{position:absolute;left:69.5%;top:36%;width:27%;aspect-ratio:1;z-index:5;pointer-events:none;opacity:0;transform:rotate(calc(var(--lever) * 9deg));transform-origin:9% 9%;filter:brightness(.72) drop-shadow(4px 8px 3px #0009)}
+.crate-pry-art>.camp-art,.crate-weight-art>.camp-art{width:100%;height:100%;background:none}
+.has-pry .crate-pry-art{opacity:calc(1 - var(--open-blend))}
+.crate-weight-art{position:absolute;left:70%;top:20%;width:8%;aspect-ratio:1;z-index:6;opacity:0;pointer-events:none;filter:brightness(.82) drop-shadow(0 4px 2px #0009);transform:translateY(calc((1 - var(--lever)) * -.5cqw))}
+.has-weight .crate-weight-art{opacity:calc(1 - var(--open-blend))}
+.crate-oil-breath{position:absolute;right:0;top:0;width:30%;height:75%;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(ellipse at 94% 14%,#dd8c3a14,transparent 60%);animation:crate-flame 2.6s infinite alternate;z-index:6}
+.crate-world-edge{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#040a0a6e,transparent 16%,transparent 69%,#050c0aba),radial-gradient(ellipse,transparent 58%,#050c0a45);z-index:15}
+.crate-room-header{position:absolute;z-index:20;top:3%;left:3%;right:3%;display:flex;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:.15em;text-shadow:0 2px 5px #000;pointer-events:none}
+.crate-room-header>span{opacity:.75}.crate-room-header i{font-style:normal;margin:0 9px;opacity:.5}
+.crate-room-header button{pointer-events:auto;padding:13px 12px;border:0;border-bottom:1px solid #d3bd8855;background:#09120d55;color:#d3c39c;font-size:13px}
+.crate-room button:focus-visible{outline:2px solid #d6bc7b;outline-offset:4px}
+.crate-control{position:absolute;z-index:10;padding:0;border:0;background:transparent;min-width:0;min-height:0;cursor:grab;touch-action:none;isolation:isolate}
+.crate-control:hover,.crate-control:active{background:transparent;box-shadow:none}
+.crate-control>i{position:absolute;left:50%;top:50%;width:13px;height:13px;border:1px solid #d5be8788;border-radius:50%;box-shadow:0 0 18px #000;transform:translate(-50%,-50%);opacity:0;transition:opacity .2s;pointer-events:none}
+.crate-control>i:after{content:'';position:absolute;inset:4px;border-radius:50%;background:#d3bb84}
+.observing .crate-control>i,.crate-control:focus-visible>i{opacity:1}
+.crate-control:hover>i{opacity:.4}
+.crate-lid-control{left:34%;top:11%;width:53%;height:19%}
+.crate-bar-control{left:47%;top:28%;width:41%;height:20%}
+.crate-gap-control{left:65%;top:33%;width:13%;height:15%;z-index:12}
+.crate-lever-control{left:76%;top:45%;width:20%;height:32%;z-index:12}
+.crate-tongue-control{left:69%;top:20%;width:11%;height:17%;z-index:13}
+.crate-floor-control{left:33%;top:41%;width:41%;height:15%}
+.crate-lining-control{left:31%;top:40%;width:30%;height:17%;z-index:12}
+.crate-scraps-control{left:55%;top:45%;width:7%;height:6%;z-index:13}
+.crate-scraps-control>img{display:block;width:100%;height:100%;object-fit:contain;transform:perspective(180px) rotateX(45deg) rotate(-11deg);filter:brightness(.6) drop-shadow(0 2px 1px #0009);pointer-events:none}
+.crate-liner-art{position:absolute;left:30%;top:40%;width:34%;height:17%;z-index:8;pointer-events:none;opacity:var(--open-blend);transform-origin:14% 14%;transform:perspective(650px) rotateX(28deg) rotate(-8deg) translateX(calc(var(--lining-drag) * 13cqw));transition:transform .6s,opacity .5s;filter:brightness(.52) drop-shadow(0 5px 2px #0009)}
+.crate-liner-art img{width:100%;height:100%;object-fit:fill}
+.lining-lifted .crate-liner-art{transform:perspective(650px) rotateX(36deg) rotate(-24deg) translate(44cqw,4cqw);opacity:0}
+.crate-caption{position:absolute;bottom:16%;left:22%;right:15%;z-index:22;pointer-events:none;opacity:0;transform:translateY(7px);transition:opacity .35s,transform .35s;text-shadow:0 2px 4px #000,0 0 12px #000}
+.crate-caption.visible{opacity:1;transform:none}
+.crate-caption>span{display:block;font-size:11px;letter-spacing:.2em;color:#bdac8b;margin-bottom:7px}
+.crate-caption>p{font:clamp(15px,1.6cqw,23px)/1.8 'Gucheng Campaign Manuscript',var(--font-manuscript);letter-spacing:.03em;margin:0}
+.crate-room-footer{position:absolute;left:3%;right:3%;bottom:3%;z-index:25;display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none}
+.crate-room-footer button{pointer-events:auto}
+.crate-pouch{position:relative;display:flex;gap:20px;align-items:flex-end}
+.crate-pouch-toggle{min-width:90px;min-height:47px;display:flex;gap:18px;align-items:center;justify-content:space-between;padding:9px 17px;color:#d3bd91;background:#0b1711cc;border:1px solid #bfa16b55;outline:1px solid #bfa16b22;outline-offset:-5px;font-size:14px}
+.crate-pouch-toggle>span{font-size:18px;opacity:.55;transition:transform .3s}.pouch-open .crate-pouch-toggle>span{transform:rotate(180deg)}
+.crate-pouch-items{pointer-events:none;opacity:0;transform:translateY(15px);transition:opacity .2s,transform .2s;display:flex;gap:10px;align-items:flex-end;position:absolute;bottom:65px;left:0;padding:15px 12px;background:linear-gradient(#0b1817dd,#0a1611d9);border-bottom:1px solid #bd9d5b55;min-width:120px}
+.pouch-open .crate-pouch-items{opacity:1;transform:none;pointer-events:auto}
+.crate-pouch-items>button{width:92px;height:98px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px;gap:6px;border:1px solid transparent;background:transparent;color:#b8aa88;touch-action:none;cursor:grab}
+.crate-pouch-items>button[aria-pressed=true]{border-color:#b49b6377;background:#b49b6310}
+.crate-pouch-items .camp-art{width:65px;height:65px;filter:brightness(.85) drop-shadow(1px 4px 2px #000)}
+.crate-pouch-items small{font-size:11px;white-space:nowrap}
+.crate-pouch-empty{font-size:12px;line-height:1.9;color:#a69f80;margin:4px 12px;width:160px}
+.crate-quiet-tools{display:flex;gap:20px;align-items:center}
+.crate-quiet-tools button{border:0;border-bottom:1px solid #bda16f44;background:transparent;color:#b4a98b;padding:9px 4px;font-size:12px}
+.crate-carry{position:absolute;z-index:40;width:100px;height:100px;transform:translate(-50%,-50%);pointer-events:none;display:none;filter:drop-shadow(0 12px 6px #0009)}
+.crate-carry .camp-art{width:100%;height:100%}
+.carrying .crate-carry{display:block}
+.holding-pry .crate-gap-control>i,.holding-weight .crate-tongue-control>i{opacity:.8;box-shadow:0 0 22px #c49c4b55}
+.grabbing,.grabbing .crate-control{cursor:grabbing}
+.settling .crate-body-painting,.settling .crate-open-painting,.settling .crate-lid-skin,.settling .crate-fixed-keepers,.settling .crate-moving-bar,.settling .crate-pry-art,.settling .crate-weight-art{transition:opacity .75s ease-in-out,transform .75s ease-in-out}
+.resisted .crate-body-painting,.resisted .crate-moving-bar,.resisted .crate-fixed-keepers{animation:crate-resist .32s ease-out}
+.crate-room.leaving{animation:crate-leave .23s ease-in forwards}
+.crate-room [hidden]{display:none!important}
+@keyframes crate-arrive{from{opacity:0;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+@keyframes crate-leave{to{opacity:0;transform:scale(.985)}}
+@keyframes crate-flame{from{opacity:.4}to{opacity:1}}
+@keyframes crate-resist{0%,100%{translate:0 0}20%{translate:1px -2px}45%{translate:-1px 1px}70%{translate:0 -1px}}
+@media(max-width:700px){.crate-room-header{font-size:10px}.crate-room-header button{font-size:11px;padding:8px}.crate-caption{left:12%;right:8%;bottom:20%}.crate-caption>span{font-size:9px}.crate-caption>p{font-size:14px}.crate-pouch-toggle{min-height:38px;min-width:74px;font-size:12px;padding:5px 12px}.crate-pouch-items{bottom:48px;padding:5px}.crate-pouch-items>button{width:66px;height:77px}.crate-pouch-items .camp-art{width:48px;height:48px}.crate-pouch-items small{font-size:9px}.crate-quiet-tools{gap:12px}.crate-quiet-tools button{font-size:10px;padding:7px 2px}.crate-carry{width:65px;height:65px}}
+@media(prefers-reduced-motion:reduce){.crate-room,.crate-oil-breath,.crate-room.leaving{animation:none}.crate-room.leaving{opacity:0}.crate-caption,.crate-liner-art,.settling>*{transition:none!important}}
+
+.crate-pry-art>.camp-art{transform:rotate(90deg);transform-origin:center}
+
+.crate-spring{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;opacity:0;transform:translateY(calc(var(--lever) * -.15cqw));transition:transform .2s}
+.has-pry .crate-spring{opacity:calc(var(--lever) * (1 - var(--open-blend)))}
+.has-weight .crate-spring{transform:translateY(1.4cqw)}
+.bar-released .crate-moving-bar{opacity:0;transform:translate(-34cqw,36cqw) rotate(8deg);transition:transform .55s ease-in,opacity .5s .1s}
+.resisted:not(.has-weight) .crate-spring{animation:crate-springback .4s ease-out}
+@keyframes crate-springback{0%,100%{translate:0 0}30%{translate:0 1.2cqw}65%{translate:0 -.18cqw}}

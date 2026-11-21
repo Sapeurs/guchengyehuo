@@ -1,0 +1,32 @@
+/* Keep art proportions independent of the generous click targets. */
+.camp-art{background:none;overflow:hidden;flex-shrink:0;max-width:100%}
+.camp-spot.camp-loose-prop,.camp-spot.camp-paper-prop{transform:none;min-width:0;min-height:0;padding:0;overflow:visible}
+.camp-spot.camp-loose-prop>.camp-art,.camp-spot.camp-loose-prop>.camp-prop-img,.camp-spot.camp-paper-prop>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:rotate(var(--prop-turn,0deg));transform-origin:center;pointer-events:none}
+.camp-spot.camp-flat-paper>img{transform:perspective(400px) rotateX(40deg) rotate(var(--prop-turn,0deg));filter:brightness(.72) drop-shadow(0 2px 1px #0009)}
+.camp-point{pointer-events:none}
+.camp-object-clue{z-index:2}
+.camp-scene-detail{display:block;width:100%;height:100%;overflow:hidden}
+.camp-scene-marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.camp-stone-engraving{filter:drop-shadow(0 1px 0 #d7d7bc44);opacity:.8}
+.camp-object-detail{position:relative;background:#080e0c;border:1px solid #9f8b5a55;min-height:240px;display:flex;align-items:center;justify-content:center}
+.camp-object-detail .camp-scene-detail{height:320px;max-height:45vh}
+.camp-object-detail>small{position:absolute;bottom:0;left:0;right:0;padding:12px;background:#0a100ee0;color:#b4a788;text-align:center;font-size:11px}
+.camp-observation-lines{margin:24px 0;padding:5px 0 5px 16px;border-left:1px solid #b09863;font:21px/1.8 'Gucheng Campaign Manuscript',var(--font-manuscript);color:#d0bd96}
+.camp-observation-lines p{margin:3px 0}
+.camp-mechanism:before{background-image:url('/assets/chapters/workboard-v12.png');opacity:.38}
+.camp-scale-beam:before,.camp-scale-beam:after{content:none}
+.camp-scale-pan{transform:translateY(var(--pan-drop,0px));transition:transform .3s}
+.camp-scale-pan:before{content:'';position:absolute;width:1px;height:58px;top:-58px;left:50%;background:#ad975d}
+
+/* The crate is a painted object, never a stretched texture with CSS metal bars. */
+.w-crate-closeup{width:min(720px,82vw);height:auto;aspect-ratio:1672/941;background:none;border:0;border-radius:0;transform:none;box-shadow:0 16px 50px #0009}
+.w-crate-closeup:before,.w-crate-closeup:after{content:none}
+.w-crate-painting{display:block;width:100%;height:100%;object-fit:contain}
+.w-crate-closeup>p{top:calc(100% + 10px)}
+.w-inside-crate{width:min(620px,78vw);height:min(43vh,370px);background:#151711;border:0;transform:none;overflow:hidden}
+.w-inside-crate>p{bottom:0;left:0;right:0;margin:0;padding:15px;background:#0b110dd9;font-size:15px}
+.w-inside-crate .w-lining-button{top:12px;left:12px;padding:10px 18px;min-height:44px;background:#24291ce6;border:1px solid #9a855d66}
+.w-table-seal.w-seal-revealed{left:65%;top:68%;width:10%;transform:perspective(180px) rotateX(34deg) rotate(-9deg);box-shadow:0 2px 2px #0006}
+.w-table-seal.w-seal-revealed>span{opacity:.45}
+.w-table-seal>em{display:block;font-style:normal;color:#503626;font-size:1.6cqw;line-height:1.2;border-top:1px solid #77634344;margin-top:3px}
+@media(max-width:600px){.camp-object-detail{min-height:160px}.camp-object-detail .camp-scene-detail{height:220px}.camp-observation-lines{font-size:18px}.w-inside-crate>p{font-size:12px}.w-crate-closeup>p{font-size:11px}}

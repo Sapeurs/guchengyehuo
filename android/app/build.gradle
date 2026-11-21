@@ -1,0 +1,49 @@
+plugins { id 'com.android.application' }
+
+def webAssetDir = project.findProperty('webAssetDir') ?: '../../dist'
+
+def signingFile = rootProject.file('signing.properties')
+def signing = new Properties()
+if (signingFile.exists()) signingFile.withInputStream { signing.load(it) }
+
+android {
+    namespace 'com.sapeurs.guchengyehuo'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.sapeurs.guchengyehuo'
+        minSdk 26
+        targetSdk 35
+        versionCode 2600
+        versionName '0.26.0'
+    }
+    signingConfigs {
+        release {
+            if (signingFile.exists()) {
+                storeFile rootProject.file(signing['storeFile'])
+                storePassword signing['storePassword']
+                keyAlias signing['keyAlias']
+                keyPassword signing['keyPassword']
+            }
+        }
+    }
+    buildTypes {
+        debug { applicationIdSuffix '.debug'; versionNameSuffix '-debug' }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+    sourceSets { main { assets.srcDirs = [webAssetDir] } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    buildFeatures { buildConfig true }
+    lint { abortOnError true; checkReleaseBuilds true }
+}
+
+tasks.register('verifyWebAssets') {
+    doLast {
+        if (!file(webAssetDir + '/index.html').exists()) throw new GradleException('Run npm run build from the repository root first.')
+    }
+}
+tasks.named('preBuild').configure { dependsOn 'verifyWebAssets' }
+dependencies { implementation 'androidx.webkit:webkit:1.12.1' }

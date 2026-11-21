@@ -1,0 +1,20 @@
+{
+  "name": "gucheng-nightfire",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "test": "node --experimental-strip-types --test src/game.test.ts src/campaign.test.ts src/chapter-one.test.ts src/field.test.ts",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "7.2.2",
+    "@types/node": "22.19.0"
+  }
+}

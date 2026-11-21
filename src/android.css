@@ -1,0 +1,38 @@
+/* Scoped to the offline Android app; desktop Site layout stays unchanged. */
+.android-game,.android-game body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.android-game button{touch-action:manipulation}
+.android-game img{-webkit-user-drag:none;user-select:none}
+.android-game .field-part{min-width:34px;min-height:34px}
+.android-game .field-rail input{height:22px}
+.android-game .field-rail input::-webkit-slider-thumb{width:32px;height:32px}
+.android-game .camp-spot{min-width:30px;min-height:30px}
+.android-game .field-footer button{min-height:36px}
+@media(max-height:540px){
+ .android-game .title-copy{top:50%;transform:translateY(-50%);left:8%}
+ .android-game .game-title{font-size:clamp(42px,10vh,70px);margin-top:10px}
+ .android-game .title-story{font-size:12px;line-height:1.8;margin-bottom:12px}
+ .android-game .title-rule{margin:12px 0 8px}
+ .android-game .chapter-select-link{font-size:13px;margin-top:7px;padding:5px 0;min-height:30px}
+ .android-game .start-button{min-height:38px}
+ .android-game .title-meta{font-size:9px;margin-top:9px}
+ .android-game .field-caption{left:12%;right:10%;bottom:12%}
+ .android-game .field-caption>p{font-size:clamp(11px,1.55cqw,16px);line-height:1.65;margin-top:2px}
+ .android-game .field-caption>small,.android-game .field-tool-status{font-size:9px}
+ .android-game .field-gesture{display:none}
+ .android-game .field-footer{bottom:1.5%;font-size:10px}
+ .android-game .field-header{top:1.7%;font-size:11px}
+ .android-game .field-command{font-size:clamp(11px,1.45cqw,16px)!important;min-height:32px;padding:6px 10px}
+ .android-game .field-local-actions{gap:12px}
+ .android-game .field-stage:has(.field-rail):has(.field-local-actions) .field-rail{bottom:4%}
+ .android-game .field-stage:has(.field-rail):has(.field-local-actions) .field-local-actions{bottom:-14%}
+ .android-game .field-witness-evidence{padding:9px 12px}
+ .android-game .field-witness-topics{gap:8px}
+ .android-game .field-witness-evidence>small{font-size:11px;line-height:1.5;margin-top:4px}
+ .android-game .field-register{padding:14px 24px}
+ .android-game .field-register h3{margin-bottom:8px}
+ .android-game .field-register-row{min-height:45px;gap:15px}
+ .android-game .field-death-mark{height:54px;width:140px}
+ .android-game .field-register-witness{margin:8px 0}
+ .android-game .field-register-note{margin:6px 0;font-size:11px}
+ .android-game .field-register-desk+.field-local-actions{bottom:-15%}
+}

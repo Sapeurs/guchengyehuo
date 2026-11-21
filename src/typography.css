@@ -1,0 +1,8 @@
+@font-face{font-family:'Gucheng Display';src:url('/assets/fonts/display-v3.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'Gucheng UI';src:url('/assets/fonts/ui-regular-v3.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'Gucheng UI';src:url('/assets/fonts/ui-semibold-v3.woff') format('woff');font-style:normal;font-weight:600;font-display:swap}
+@font-face{font-family:'Gucheng Manuscript';src:url('/assets/fonts/manuscript-v5.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
+:root{--font-display:'Gucheng Display','STKaiti','KaiTi',serif;--font-ui:'Gucheng UI','Microsoft YaHei',sans-serif;--font-book:'Noto Serif SC','Songti SC','SimSun',serif;--font-manuscript:'Gucheng Manuscript','STKaiti','KaiTi',serif;font-family:var(--font-ui);font-size:15px;-webkit-font-smoothing:antialiased}
+
+@font-face{font-family:'Gucheng Book Ink';src:url('/assets/fonts/book-ink-v4.woff') format('woff');font-style:normal;font-weight:400;font-display:block}
+@font-face{font-family:'Gucheng Readable Ink';src:url('/assets/fonts/book-ink-sc-v5.woff') format('woff');font-style:normal;font-weight:400;font-display:block}

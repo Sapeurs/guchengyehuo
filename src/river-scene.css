@@ -1,0 +1,41 @@
+.v25-room-actions{position:absolute;inset:0;z-index:3;pointer-events:none}
+.v25-room-actions button{pointer-events:auto;cursor:pointer}
+.v25-room-actions .field-part>i{border-radius:32%;border-color:#e3cca996}
+.v25-room-actions .field-part:hover>span,.camp-observing .v25-room-actions .field-part>span,
+.camp-observing .v25-room-actions .field-part>i{opacity:1}
+.v25-room-actions .v24-artwork::after{display:none}
+.v25-room-line{position:absolute;left:4%;bottom:11%;max-width:65%;margin:0;padding:.6em .9em;
+  font:clamp(11px,1.37cqw,20px)/1.65 'Gucheng Field Manuscript',serif;color:#e7d8b9;
+  text-shadow:1px 2px 4px #000;background:linear-gradient(90deg,#111813dc,#101714c4 82%,#10171400);
+}
+.v25-cargo-mark{position:absolute;left:69.15%;top:70.2%;font:clamp(8px,.86cqw,14px) 'Gucheng Field Ink',serif;
+  color:#d2a170;opacity:.75;transform:rotate(-5deg);text-shadow:1px 1px #2e1d18}
+.v25-tube{position:absolute;left:52%;top:54%;width:4.2%;height:1.7%;transform:rotate(-12deg);
+  border:1px solid #211910;border-radius:18% 20% 20% 18%;box-shadow:1px 2px 3px #080807c8;
+  background:linear-gradient(0deg,#1d2019bb,transparent 55%,#c7ba9960),linear-gradient(90deg,#382b22 11%,#8f774c 13% 20%,#524335 23% 80%,#9e8258 81% 88%,#382b22 90%)}
+.v25-stop-line,.v25-signal-ray{position:absolute;inset:0;width:100%;height:100%}
+.v25-stop-line path{fill:none;stroke:#372b1e;stroke-width:6;stroke-linecap:round}
+.v25-stop-line path+path{stroke:#967b55;stroke-width:3.7;stroke-dasharray:1.5 1}
+.v25-release-on-water{position:absolute;left:46%;top:53%;width:30%;height:12%;border-radius:50%;
+  background:radial-gradient(ellipse,#f1bb6370,#ac7a392e 50%,transparent 73%);
+  transform:rotate(-5deg);mix-blend-mode:screen;animation:v25-reflect 1.6s ease-in-out infinite alternate}
+.v25-signal-ray{opacity:0;mix-blend-mode:screen;animation:v25-short-flash 1s ease-out}
+.v25-signal-ray path{fill:#efbb67;opacity:.17}
+.v25-signal-ray.closing{animation:v25-two-flashes 1.05s ease-out}
+.v25-response{position:absolute;left:25.55%;top:28.06%;width:1.2%;height:1.9%;background:#ffc778;
+  box-shadow:0 0 .6em .35em #efaf5a60;animation:v25-two-flashes 1.05s 1.05s ease-out both}
+.v25-slotted-rope{position:absolute;left:78.6%;top:51.7%;width:.75%;height:5.8%;border-radius:45%;
+  background:repeating-linear-gradient(22deg,#4c3728,#b1976e 20%,#514033 38%);box-shadow:2px 2px 3px #080b0a;
+  transform:rotate(-23deg);transition:left .2s}
+.v25-slotted-rope.inward{left:59.8%;transform:rotate(23deg)}
+@keyframes v25-reflect{from{opacity:.48}to{opacity:.92}}
+@keyframes v25-short-flash{0%,100%{opacity:0}10%,50%{opacity:1}}
+@keyframes v25-two-flashes{0%,38%,53%,100%{opacity:0}7%,25%,67%,84%{opacity:1}}
+@media(max-width:600px){.v25-room-line{bottom:1%;max-width:78%;font-size:11px;padding:.35em .65em}}
+@media(prefers-reduced-motion:reduce){
+  .v25-release-on-water,.v25-signal-ray,.v25-response{animation:none;opacity:1}
+  .v25-slotted-rope{transition:none}
+}
+
+.v25-rig-flash .v24-lamp.on{animation:v25-short-flash 1.4s ease-out both}
+@media(prefers-reduced-motion:reduce){.v25-rig-flash .v24-lamp.on{animation:none}}

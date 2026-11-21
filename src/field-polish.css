@@ -1,0 +1,84 @@
+/* Scene-sized photographic objects. Native controls stay available for touch and keyboard. */
+.field-c2-p1 .field-stage,.field-c4-p3 .field-stage,.field-c6-p2 .field-stage{inset:0;height:100%}
+.v21-artwork{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.v21-photo{position:absolute;width:100%;height:100%;inset:0;object-fit:cover}
+.v21-ladder{position:absolute;left:50%;top:28%;width:36%;height:65%;object-fit:fill;transform-origin:50% 3%;transform:perspective(900px) rotateX(55deg) rotateZ(-13deg);filter:drop-shadow(7px 12px 6px #0009) brightness(.79);transition:transform 1.1s cubic-bezier(.2,.65,.3,1),filter .6s;user-select:none;pointer-events:none}
+.v21-ladder.lowered{transform:perspective(900px) rotateX(17deg) rotateZ(5deg);filter:drop-shadow(5px 10px 7px #0009) brightness(.9)}
+.v21-dock-ropes{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.v21-dock-ropes path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.v21-rope-shadow{stroke:#1f170f;stroke-width:11;filter:drop-shadow(0 4px 2px #0009)}
+.v21-rope-body{stroke:#84704b;stroke-width:7}
+.v21-rope-fibres{stroke:#c5ac78aa;stroke-width:2;stroke-dasharray:2 5}
+.v21-dock-ropes .v21-iron-hook{stroke:#817b60;stroke-width:10;filter:drop-shadow(3px 4px 3px #000)}
+.field-c2-p1 .field-stage:after,.field-c4-p3 .field-stage:after,.field-c6-p2 .field-stage:after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(#040b0b66,transparent 23%,transparent 61%,#05100ae8)}
+.v21-touch{z-index:4;min-width:36px;min-height:36px}
+.v21-touch>i{border:1px solid #ccb98b88}
+.field-c2-p1 .field-caption,.field-c4-p3 .field-caption,.field-c6-p2 .field-caption{left:12%;right:12%;bottom:12%}
+.field-c2-p1 .field-not-ready,.field-c4-p3 .field-not-ready,.field-c6-p2 .field-not-ready{filter:none}
+.field-c2-p1 .field-not-ready .v21-artwork,.field-c4-p3 .field-not-ready .v21-artwork,.field-c6-p2 .field-not-ready .v21-artwork{filter:brightness(.68)}
+.v21-care-photo{position:absolute;inset:0;background-image:url('/assets/chapters/c4-bandage-states-v21.png');background-size:300% auto;background-position-y:52%;background-repeat:no-repeat;transition:filter .5s}
+.v21-care-grip{cursor:grab;touch-action:none!important}
+.v21-care-grip:active{cursor:grabbing}
+.v21-object-cue{position:absolute;left:35%;right:35%;top:65%;margin:0;font:clamp(10px,1.1cqw,16px) 'Gucheng Field UI',sans-serif;text-align:center;color:#c7bc9e;text-shadow:0 2px 5px #000;pointer-events:none}
+.field-complete .v21-object-cue{display:none}
+.v21-signal-beam{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.v21-window{position:absolute;display:block;width:1.5%;height:3.2%;background:transparent;pointer-events:none}
+.v21-window.east{left:30.15%;top:37.2%;width:1.6%;height:3.4%}
+.v21-window.west{left:79.17%;top:28.05%;width:.75%;height:2.1%}
+.v21-window.lit{background:#e3b15b;box-shadow:0 0 10px 4px #e3b15b66,0 0 26px 12px #e3b15b22;animation:v21-answer .8s ease-out both}
+.field-c6-p2 .v21-tower-rail{left:34%;right:34%;bottom:26%;z-index:8;color:#d5c49e;text-shadow:0 2px 4px #000}
+.field-c6-p2 .v21-tower-send{left:64%;right:5%;bottom:26%;z-index:8}
+.field-c6-p2 .v21-tower-send .field-command{font-size:clamp(11px,1.1cqw,16px)!important}
+.field-c6-p2 .field-stage:has(.field-rail):has(.field-local-actions) .field-rail{bottom:26%}
+.field-c6-p2 .field-stage:has(.field-rail):has(.field-local-actions) .field-local-actions{bottom:26%}
+.v21-world-ladder{position:absolute;left:32%;top:52%;width:22%;height:40%;transform:rotate(4deg)}
+.v21-world-ladder .v21-ladder{inset:0;width:100%;height:100%;transform:rotate(-26deg);object-fit:fill;transform-origin:top;filter:brightness(.65) drop-shadow(3px 5px 3px #0009)}
+.v21-world-ladder .v21-ladder.lowered{transform:rotate(13deg)}
+.v21-handover-scene{position:absolute;inset:-20% -12%;overflow:hidden}
+.v21-handover-scene>img{width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
+.v21-handover-paper{position:absolute;left:42%;top:56%;width:14%;height:16%;display:grid;place-items:center;color:#6f4b30;background:url('/assets/crafted/paper-leaf-blank-v3.png') center/100% 100%;font:2.5cqw 'Gucheng Field Ink',serif;transform:rotate(-6deg);box-shadow:5px 8px 8px #0008}
+.field-c6-p5 .field-stage{inset:0;height:100%}
+.field-c6-p5 .field-local-actions{bottom:26%;left:30%;right:30%}
+.field-c6-p5 .field-caption{bottom:12%}
+/* A discovery has room to breathe before the next interaction. Never delay the Continue button. */
+.field-moment{position:fixed;inset:0;z-index:75;background:#07100b;display:grid;place-items:center;color:#e1cda6}
+.field-moment-room{position:relative;width:min(100vw,calc(100dvh * 1672 / 941));aspect-ratio:1672/941;overflow:hidden;container-type:inline-size;isolation:isolate}
+.field-moment-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:v21-reveal 1.6s ease-out both}
+.field-moment-room:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 45%,#061009bd 72%,#061009fa);z-index:1}
+.field-moment-caption{position:absolute;left:10%;right:10%;bottom:8%;z-index:4;text-shadow:0 2px 7px #000}
+.field-moment-caption>small{font:clamp(10px,1cqw,15px) 'Gucheng Field UI',sans-serif;color:#afa78b;letter-spacing:.2em}
+.field-moment-caption>p{margin:14px 0 8px;font:clamp(17px,2cqw,30px)/1.9 'Gucheng Field Manuscript',serif}
+.field-moment-caption>span{display:block;font:clamp(11px,1.2cqw,17px)/1.9 'Gucheng Field UI',sans-serif;color:#aaa98e;max-width:75%}
+.field-moment-caption button{position:absolute;right:0;bottom:0;min-height:44px;padding:12px 20px;border-bottom:1px solid #bca77777;color:#dcc69b;font:clamp(12px,1.1cqw,16px) 'Gucheng Field UI',sans-serif;background:#15201988}
+.field-moment-title{position:absolute;top:6%;left:5%;z-index:3;font:clamp(12px,1.2cqw,18px) 'Gucheng Field UI',sans-serif;color:#beb495;letter-spacing:.15em;text-shadow:0 2px 5px #000}
+.moment-recognition .field-moment-image{animation:v21-person 2.3s ease-out both}
+.moment-signal .v21-window.east{animation:v21-return-east 4s ease-in-out both;background:#e6b55b}
+.moment-signal .v21-window.west{animation:v21-return-west 4s ease-in-out both;background:#e6b55b}
+.moment-dawn .field-moment-image{animation:v21-dawn 3s ease-out both}
+.v21-return-slip{position:absolute;right:8%;top:20%;z-index:2;transform:rotate(4deg);width:26%;padding:3%;color:#493829;background:url('/assets/crafted/paper-leaf-blank-v3.png') center/100% 100%;box-shadow:5px 10px 14px #0008;font:2.2cqw/2.1 'Gucheng Field Ink',serif;animation:v21-slip .7s ease-out both}
+.v21-return-slip strong{display:block;font-size:3cqw;font-weight:400}.v21-return-slip span{display:block;font-size:1.6cqw}.v21-return-slip del{text-decoration-thickness:1px}
+@keyframes v21-reveal{from{opacity:.3;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes v21-person{from{filter:brightness(.25);transform:scale(1.04)}to{filter:brightness(1);transform:scale(1.015)}}
+@keyframes v21-answer{from{opacity:0}to{opacity:1}}
+@keyframes v21-return-east{0%,12%{opacity:0}22%{opacity:1}35%{opacity:.1}45%,100%{opacity:1;box-shadow:0 0 25px 8px #efbf6144}}
+@keyframes v21-return-west{0%,48%{opacity:0}60%{opacity:1}72%{opacity:.1}83%,100%{opacity:1;box-shadow:0 0 20px 5px #efbf6144}}
+@keyframes v21-dawn{from{filter:brightness(.65) saturate(.6)}to{filter:brightness(1) saturate(1)}}
+@keyframes v21-slip{from{opacity:0;translate:0 15px}to{opacity:1;translate:0 0}}
+@media(max-height:540px){.field-moment-caption{bottom:7%;left:8%;right:8%}.field-moment-caption>p{font-size:clamp(15px,2cqw,23px);margin-top:8px;line-height:1.7}.field-moment-caption>span{font-size:clamp(10px,1.25cqw,14px);max-width:70%}.field-moment-caption button{padding:8px 12px;min-height:36px}.v21-touch{min-width:34px;min-height:34px}.v21-object-cue{top:64%}.field-c6-p2 .v21-tower-rail>span{font-size:10px}.field-c6-p2 .v21-tower-send .field-command{min-height:32px;padding:7px 12px}}
+@media(prefers-reduced-motion:reduce){.v21-ladder{transition:none}.field-moment-image,.moment-recognition .field-moment-image,.moment-dawn .field-moment-image,.v21-window,.moment-signal .v21-window,.v21-return-slip{animation:none!important;opacity:1;filter:none}}
+
+.field-c2-p1.field-complete .v21-dock .v21-ladder.lowered{animation:v21-lower-ladder 1.1s cubic-bezier(.2,.65,.3,1) both}
+@keyframes v21-lower-ladder{from{transform:perspective(900px) rotateX(55deg) rotateZ(-13deg)}to{transform:perspective(900px) rotateX(17deg) rotateZ(5deg)}}
+@media(prefers-reduced-motion:reduce){.field-c2-p1.field-complete .v21-dock .v21-ladder.lowered{animation:none}}
+
+.v21-tower-name{position:absolute;color:#b5ad91;font:clamp(10px,1cqw,14px) 'Gucheng Field UI',sans-serif;text-shadow:0 2px 4px #000;letter-spacing:.1em;opacity:.75}.v21-tower-name.east{left:29%;top:44%}.v21-tower-name.west{left:78%;top:33%}
+.field-footer>div:first-child{flex-wrap:wrap;max-width:45%}.field-footer .field-quick-tool{color:#d7c39a;border-color:#b19b6188;background:#18241b99;padding:7px 10px;font:inherit;min-height:34px}
+.field-complete .field-witness-topics{pointer-events:auto}
+
+/* The guard grants supervised access, not an acquittal. */
+.camp-sequence.v22-guard-dialogue{max-height:100dvh;overflow:auto}
+.camp-sequence.v22-guard-dialogue>div:last-child{max-width:50rem;padding:2rem 5vw}
+.camp-sequence.v22-guard-dialogue h2{font-size:clamp(1.5rem,3vw,2.8rem);margin:.6rem 0 1rem}
+.camp-sequence.v22-guard-dialogue p{font-family:'Gucheng Field Manuscript',serif;font-size:clamp(.92rem,1.35vw,1.1rem);line-height:1.75;min-height:0;margin:.9rem 0}
+.camp-sequence.v22-guard-dialogue .camp-text-button{display:inline-flex;margin-left:1rem}
+@media(max-height:600px){.camp-sequence.v22-guard-dialogue>div:last-child{padding:1rem 5vw}.camp-sequence.v22-guard-dialogue h2{margin:.3rem 0}.camp-sequence.v22-guard-dialogue p{font-size:.9rem;line-height:1.5;margin:.45rem 0}}
