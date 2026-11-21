@@ -211,7 +211,7 @@ document.addEventListener('click',e=>{
   if(a==='campaign-picker'){campaign.openPicker();return;}
   if(a==='first-chapter-refined'){campaign.replayFirst();return;}
   if(a==='enter-campaign'){modal=null;render();campaign.start(1);return;}
-  if(a==='start'){if(campaignHasProgress()){campaign.continue();return;}if(state.completed){campaign.start(1);return;}foley.unlock();commit({type:'START'});menuOpen=false;render();if(!state.introSeen)startSequence('intro');else if(state.identityKnown&&!state.searchSeen)startSequence('search');return;}
+  if(a==='start'){if(campaignHasProgress()){campaign.continue();return;}if(state.completed){campaign.start(1);return;}foley.unlock();foley.locationMood('room');commit({type:'START'});menuOpen=false;render();if(!state.introSeen)startSequence('intro');else if(state.identityKnown&&!state.searchSeen)startSequence('search');return;}
   if(a==='menu'){observe(false);el('held-item').classList.remove('visible');modal=null;menuOpen=true;render();return;}
   if(a==='close'){closeModal();return;}
   if(a==='confirm-reset'){if(confirm('重启此夜会清除本机的本段调查进度。确定重新开始吗？'))resetGame();return;}
