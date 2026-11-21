@@ -55,7 +55,9 @@ export function propArt(p:Prop,cls=''){
 }
 function spot(command:string,label:string,at:Placement,cls:string,body:string){
  const [x,y,w,h]=at.rect;
- return `<button class="camp-spot ${cls}" data-c="${command}" aria-label="${esc(label)}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%;--prop-turn:${at.turn||0}deg">${body}<i class="camp-point" aria-hidden="true"></i></button>`;
+ // camp-hint 只驱动"这里能点"的呼吸微光；纸片与散落道具自带明显造型，不再叠加。
+ const hint=/camp-paper-prop|camp-loose-prop/.test(cls)?'':' camp-hint';
+ return `<button class="camp-spot ${cls}${hint}" data-c="${command}" aria-label="${esc(label)}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%;--prop-turn:${at.turn||0}deg">${body}<i class="camp-point" aria-hidden="true"></i></button>`;
 }
 export function propSpot(p:Prop,body=propArt(p)){
  const at=PROP_PLACEMENTS[p.id]||{rect:[p.x-4,p.y-4,8,9] as Rect};

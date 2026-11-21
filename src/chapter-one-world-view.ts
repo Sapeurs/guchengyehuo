@@ -11,7 +11,8 @@ export function oilLamp(stored=false) {
 }
 
 function spot(cmd:string, label:string, rect:number[], body='', cls='') {
-  return `<button data-c="${cmd}" aria-label="${label}" class="camp-spot w-world-spot ${cls}" style="left:${rect[0]}%;top:${rect[1]}%;width:${rect[2]}%;height:${rect[3]}%">${body}<i class="camp-point" aria-hidden="true"></i></button>`;
+  // camp-hint 只驱动"这里能点"的呼吸微光，不携带任何解谜信息。
+  return `<button data-c="${cmd}" aria-label="${label}" class="camp-spot camp-hint w-world-spot ${cls}" style="left:${rect[0]}%;top:${rect[1]}%;width:${rect[2]}%;height:${rect[3]}%">${body}<i class="camp-point" aria-hidden="true"></i></button>`;
 }
 
 export function firstChapterScene(s:CampaignProgress) {

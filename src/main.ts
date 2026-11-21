@@ -10,6 +10,7 @@ import {noteView,manifestView,orderView} from './documents';
 import {musterView} from './muster';
 import {Foley} from './foley';
 import {installAndroidSupport,isAndroidApp} from './android-support';
+import {initVisualHints,visualHintsEnabled,toggleVisualHints} from './visual-hints';
 import {mountWiping} from './wiping';
 import {createCampaign,isCampaignActive,campaignHasProgress} from './campaign-ui';
 
@@ -83,8 +84,9 @@ function renderToolbar(){el('toolbar').innerHTML=`
   <button class="tool-button" data-action="hint" title="提示" aria-label="借一点提示">${icon('candle')}</button>
   <button class="tool-button" data-action="sound" aria-label="环境声${foley.enabled?'开':'关'}" aria-pressed="${foley.enabled}">${icon(foley.enabled?'sound':'muted')}</button>
   <button class="tool-button" data-action="settings" aria-label="暂停菜单">${icon('menu')}</button>`;}
-function spot(id:string,name:string,x:number,y:number,w:number,h:number,extra='',content=''){
-  return `<button class="hotspot ${extra}" data-action="spot-${id}" aria-label="${name}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%">${content}<span class="hotspot-point" aria-hidden="true"><i></i></span></button>`;
+function spot(id:string,name:string,x:number,y:number,w:number,h:number,extra='',content='',hint=false){
+  // data-hint 只负责"这里能点"的呼吸微光，不含任何答案信息；关掉提示时全场景一起停。
+  return `<button class="hotspot ${extra}" data-action="spot-${id}" aria-label="${name}"${hint?' data-hint=""':''} style="left:${x}%;top:${y}%;width:${w}%;height:${h}%">${content}<span class="hotspot-point" aria-hidden="true"><i></i></span></button>`;
 }
 function observe(show:boolean){
   clearTimeout(observationTimer);hotspots=show;el('hotspots').classList.toggle('show-hotspots',show);
@@ -93,12 +95,16 @@ function observe(show:boolean){
 }
 function pulseObservation(){observe(true);observationTimer=setTimeout(()=>observe(false),1400);}
 function renderHotspots(){let html='';
-  if(!has('tag'))html+=spot('tag','沾污的腰牌',48.3,76.8,6.6,10.5,'item-prop tag-prop',itemArt('tag','scene-item scene-token'));
-  if(!has('cloth')&&!has('wetcloth'))html+=spot('cloth','干布条',89.5,72.2,8.4,8.1,'item-prop cloth-prop',itemArt('cloth','scene-item scene-cloth-art'));
-  html+=spot('basin','水盆',79.5,50.5,18,18)+spot('ledger','案上的册子',56,64,29,24)+(state.boxSolved?spot('box','床脚木匣',15.5,64.5,17,24):spot('box','床脚木匣',9.5,69,20.5,14.5));
+  if(!has('tag'))html+=spot('tag','沾污的腰牌',48.3,76.8,6.6,10.5,'item-prop tag-prop',itemArt('tag','scene-item scene-token'),true);
+  if(!has('cloth')&&!has('wetcloth'))html+=spot('cloth','干布条',89.5,72.2,8.4,8.1,'item-prop cloth-prop',itemArt('cloth','scene-item scene-cloth-art'),true);
+  // 册子斜放在桌上：热区要贴住整张书页（含右下大片页面），否则书页下半点不到；
+  // 右上角用切角沿书页斜边走，把那块空白桌面让出去，免得压住水盆左沿。
+  // 微光只挂在还没解开的物件上：匣子开了就不再提示。
+  html+=spot('basin','水盆',79.5,50.5,18,18,'','',true)+spot('ledger','案上的册子',54,60,36,25,'notch-tr','',true)+(state.boxSolved?spot('box','床脚木匣',15.5,64.5,17,24):spot('box','床脚木匣',9.5,69,20.5,14.5,'','',true));
   const paperArt=`<span class="wall-paper"><img src="${asset(itemArtPath('manifest'))}" alt="" draggable="false"></span>`;
-  html+=spot('noteA','墙上的纸条',40.4,26.5,5,12,'paper-prop',paperArt);
-  html+=spot('noteB','随行布包',45.8,53,18,18)+spot('detention','墙上的文书',70.3,29.8,5,13,'paper-prop detention-prop',paperArt);
+  html+=spot('noteA','墙上的纸条',40.4,26.5,5,12,'paper-prop',paperArt,true);
+  html+=spot('noteB','随行布包',45.8,53,18,18,'','',true)+spot('detention','墙上的文书',70.3,29.8,5,13,'paper-prop detention-prop',paperArt,true);
+  // 烛台只出氛围台词，木门是出口不是线索，两者都不挂微光。
   html+=spot('candle','烛台',71.8,43,7.8,20)+spot('door','偏房木门',46.5,24,8.5,27,'door-spot');
   el('hotspots').innerHTML=html;el('hotspots').classList.toggle('show-hotspots',hotspots);
   el('selected-cue').innerHTML=selected?`${itemArt(selected)}<span>${itemLabel(selected)}</span><button data-action="cancel-item" aria-label="取消道具">${icon('close')}</button>`:'';
@@ -152,8 +158,8 @@ function renderModal(){const root=el('modal-root');const focusedAction=root.cont
   const titles:Record<Exclude<Modal,null>,string>={tag:'随身腰牌',ledger:'东营行伍册',box:'百户遗下的木匣',noteA:'点验便笺',noteB:'随行布包',detention:'副将札付',order:'残缺军令',manifest:'军械押运单',journal:'陆昭手记',hint:'借一点烛光',settings:'暂停片刻',help:'如何调查',end:'序章终',basin:'一盆清水'};
   let content='';
   if(modal==='tag')content=tagView();else if(modal==='ledger')content=ledgerView();else if(modal==='box')content=boxView();else if(modal==='noteA')content=noteView('A');else if(modal==='noteB')content=noteView('B',state.identityKnown);else if(modal==='detention')content=orderView(true);else if(modal==='manifest')content=manifestView();else if(modal==='order')content=orderView();else if(modal==='journal')content=journalView();else if(modal==='hint')content=hintView();else if(modal==='basin')content=basinView();
-  else if(modal==='settings')content=`<div class="settings-content"><span class="eyebrow">进度已自动留存于本机</span><h3>灯未灭，城未眠。</h3><button class="primary-button" data-action="close">继续此夜 ${icon('arrow')}</button><button class="secondary-button" data-action="sound">环境声 ${foley.enabled?'开':'关'} ${icon(foley.enabled?'sound':'muted')}</button><button class="secondary-button" data-action="fullscreen">全屏显示 ${icon('full')}</button><button class="secondary-button" data-action="help">操作说明</button><button class="text-button" data-action="menu">返回标题</button><button class="text-button restart-link" data-action="confirm-reset">重新开始本段</button></div>`;
-  else if(modal==='help')content='<div class="help-content"><h3>留意物件，也留意字里行间。</h3><p>点按场景中的物件，进入近景。按住 H 可暂时察看互动位置。</p><p>点左下角衣囊展开背包，先选道具，再点目标使用。也可配合背包中的物品。</p><p>按 L 翻阅已发现的线索。木匣中的木牌可以点选放置，也可以拖动。</p><p>思路卡住时，点烛火图标获取逐级提示。没有倒计时，也不会因试错丢失道具。</p><small>B 背包 · H 察看 · L 手记 · Esc 返回</small></div>';
+  else if(modal==='settings')content=`<div class="settings-content"><span class="eyebrow">进度已自动留存于本机</span><h3>灯未灭，城未眠。</h3><button class="primary-button" data-action="close">继续此夜 ${icon('arrow')}</button><button class="secondary-button" data-action="sound">环境声 ${foley.enabled?'开':'关'} ${icon(foley.enabled?'sound':'muted')}</button><button class="secondary-button" data-action="hints-toggle" aria-pressed="${visualHintsEnabled()}">可调查物件微光 ${visualHintsEnabled()?'开':'关'} ${icon('eye')}</button><button class="secondary-button" data-action="fullscreen">全屏显示 ${icon('full')}</button><button class="secondary-button" data-action="help">操作说明</button><button class="text-button" data-action="menu">返回标题</button><button class="text-button restart-link" data-action="confirm-reset">重新开始本段</button></div>`;
+  else if(modal==='help')content='<div class="help-content"><h3>留意物件，也留意字里行间。</h3><p>点按场景中的物件，进入近景。可调查的物件会透出一点微光，按住 H 也能暂时察看互动位置。</p><p>点左下角衣囊展开背包，先选道具，再点目标使用。也可配合背包中的物品。</p><p>按 L 翻阅已发现的线索。木匣中的木牌可以点选放置，也可以拖动。</p><p>思路卡住时，点烛火图标获取逐级提示。没有倒计时，也不会因试错丢失道具。</p><small>B 背包 · H 察看 · L 手记 · S 物件微光 · Esc 返回</small></div>';
   else if(modal==='end')content=endingView();
   const immersive=['tag','box','ledger','basin','noteA','noteB','detention','order','manifest'].includes(modal);
   root.innerHTML=`<div class="modal-backdrop ${immersive?'immersive':''}" data-action="backdrop"><section class="inspection-modal modal-${modal}" role="dialog" aria-modal="true" aria-label="${titles[modal]}"><header class="modal-header"><div><span class="modal-marker"></span><h2>${titles[modal]}</h2></div><button class="close-button" data-action="close" aria-label="返回场景">${icon('close')}</button></header><div class="modal-body">${content}</div><footer class="modal-footer"><span>${immersive?'细看眼前之物':modal==='journal'?'见闻已记':'Esc 返回场景'}</span><button data-action="close">${icon('back')} 返回</button></footer></section></div>`;
@@ -210,6 +216,7 @@ document.addEventListener('click',e=>{
   if(a==='close'){closeModal();return;}
   if(a==='confirm-reset'){if(confirm('重启此夜会清除本机的本段调查进度。确定重新开始吗？'))resetGame();return;}
   if(a==='sound'){foley.toggle();renderToolbar();renderMenu();if(modal==='settings')renderModal();return;}
+  if(a==='hints-toggle'){toggleVisualHints();if(modal==='settings')renderModal();return;}
   if(a==='fullscreen'){if(document.fullscreenElement)void document.exitFullscreen();else document.documentElement.requestFullscreen?.().catch(()=>toast('当前浏览器无法全屏，可继续窗口游玩。'));return;}
   if(a==='bag'){bagOpen=!bagOpen;renderInventory();return;}
   if(a==='hotspots'){pulseObservation();return;}
@@ -262,6 +269,8 @@ document.addEventListener('keydown',e=>{
   if(menuOpen)return;if(e.key.toLowerCase()==='l'){if(modal==='journal')closeModal();else openModal('journal');}
   if(!modal&&e.key.toLowerCase()==='h'){if(!e.repeat)observe(true);}
   if(!modal&&e.key.toLowerCase()==='b'){bagOpen=!bagOpen;renderInventory();}
+  if(e.key.toLowerCase()==='s'&&!modal&&!sequence&&!menuOpen){toggleVisualHints();}
 });
 for(const path of new Set([...Object.values(ITEM_ART),itemArtPath('tag',true),'crafted/chest-closed.png','crafted/chest-open.png','crafted/muster-folio-v3.png','crafted/paper-leaf-blank-v3.png','crafted/torn-letter-blank-v3.png'])){const img=new Image();img.src=asset(path);}
+initVisualHints();
 render();
