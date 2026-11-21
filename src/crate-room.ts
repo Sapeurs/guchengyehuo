@@ -6,8 +6,9 @@ import type {Foley} from './foley';
 const A=(name:string)=>import.meta.env.BASE_URL+'assets/'+name;
 const prop=(id:string)=>CHAPTERS[0].props.find(p=>p.id===id)!;
 
-export function crateRoom(){
+export function crateRoom(backdrop=''){
  return `<section class="crate-room" role="dialog" aria-modal="true" aria-label="近前察看甲三号箱">
+  ${backdrop?`<img class="crate-yard-backdrop" src="${backdrop}" alt="" draggable="false">`:''}
   <div class="crate-world" aria-label="可以直接操纵的箱体">
    <img class="crate-open-painting" src="${A('chapters/crate-open-v13.png')}" alt="甲三号箱的空木质内腔" draggable="false">
    <img class="crate-body-painting" src="${A('chapters/crate-body-v13.png')}" alt="横木穿在铁箍里，箱盖被顶住" draggable="false">

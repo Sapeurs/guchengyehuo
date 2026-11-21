@@ -1,5 +1,10 @@
-.crate-room{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:#080e0c;animation:crate-arrive .42s ease-out;color:#e5d1a9;font-family:'Gucheng Campaign UI',var(--font-ui)}
-.crate-world{position:relative;width:min(100vw,calc(100dvh * 1672 / 941));aspect-ratio:1672/941;container-type:inline-size;overflow:hidden;isolation:isolate;--lever:0;--bar:0;--lid:0;--open-blend:0;--resist:0;--lining-drag:0;touch-action:none}
+/* 前院底衬：让玩家在解箱时仍然看得见自己站在院子里，而不是掉进一个黑屏弹窗 */
+.crate-yard-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;filter:brightness(.34) saturate(.78) blur(2.5px);transform:scale(1.06)}
+/* 近前察看甲三号箱：贴着场景浮起，而不是盖掉整个前院。
+   背景保留前院原画（由 .camp-modal-root 的底衬提供），玩家始终知道自己在院子里。 */
+.crate-room{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 46%,#0a121088 0%,#060b0ab0 58%,#040807d4 100%);backdrop-filter:blur(1.5px);animation:crate-arrive .42s ease-out;color:#e5d1a9;font-family:'Gucheng Campaign UI',var(--font-ui)}
+/* 箱体本身比原来小一圈，四周留出前院的余光 */
+.crate-world{position:relative;width:min(88vw,calc(78dvh * 1672 / 941));aspect-ratio:1672/941;container-type:inline-size;overflow:hidden;isolation:isolate;--lever:0;--bar:0;--lid:0;--open-blend:0;--resist:0;--lining-drag:0;touch-action:none;border-radius:2px;box-shadow:0 24px 90px #000b,0 0 0 1px #b09b6322}
 .crate-world>img,.crate-lid-skin,.crate-fixed-keepers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;user-select:none}
 .crate-open-painting{opacity:var(--open-blend)}
 .crate-body-painting{opacity:calc(1 - var(--open-blend))}
