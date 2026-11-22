@@ -75,6 +75,26 @@ export function enterChapter(s:CampaignProgress,id:number):CampaignProgress {
 export function takeProp(s:CampaignProgress,id:string):CampaignProgress {const p=CHAPTER_BY_ID(s.chapter).props.find(p=>p.id===id&&p.scene===s.scene);return p&&eastGateAdmitted(s)&&!fieldSceneBlock(s.chapter,s.scene,s.solved)&&!(p.requires||[]).some(id=>!s.solved.includes(id))&&!(id==='c1-scraps'&&(!s.solved.includes('c1-p1')||!s.world.includes('c1-lining-lifted')))&&!(id==='c1-lamp'&&!s.world.includes('c1-drawer-open'))&&!s.bag.includes(id)?{...s,bag:[...s.bag,id]}:s;}
 export function readClue(s:CampaignProgress,id:string):CampaignProgress {const c=CHAPTER_BY_ID(s.chapter).clues.find(c=>c.id===id);return c&&!s.read.includes(id)?{...s,read:[...s.read,id]}:s;}
 export function applyTool(s:CampaignProgress,p:Puzzle,id:string):CampaignProgress {const key=p.id+':'+id;return !(p.id==='c1-p1'&&id==='c1-weight'&&(!s.used.includes('c1-p1:c1-pry')||!canWeight(s.drafts[p.id]||initialDraft(p))))&&p.tools.includes(id)&&s.bag.includes(id)&&!s.used.includes(key)?{...s,used:[...s.used,key]}:s;}
+/**
+ * 撤销这件机关上最后用掉的一件道具，把它收回衣囊。
+ *
+ * 只对「还没解开的机关」开放：已经记进手记的结论不收道具，
+ * 撤掉会与 solved 状态矛盾。返回 null 表示没有可撤的东西。
+ */
+export function undoLastTool(s:CampaignProgress,p:Puzzle):CampaignProgress|null {
+ if(s.solved.includes(p.id))return null;
+ const prefix=p.id+':';
+ const applied=s.used.filter(k=>k.startsWith(prefix));
+ if(!applied.length)return null;
+ const removed=applied[applied.length-1];
+ // 撤销要用到的道具时，把依赖它的摆放退回初始，避免出现「没工具却已生效」的状态
+ const draft=p.id==='c1-p1'?[...(s.drafts[p.id]||initialDraft(p))] as number[]:null;
+ if(draft){
+  if(removed.endsWith(':c1-weight'))draft[1]=0;
+  if(removed.endsWith(':c1-pry')){draft[1]=0;draft[2]=0;}
+ }
+ return {...s,used:s.used.filter(k=>k!==removed),drafts:draft?{...s.drafts,[p.id]:draft}:s.drafts};
+}
 export function markStory(s:CampaignProgress,key:string):CampaignProgress{return STORY_KEYS.includes(key)&&!s.storySeen.includes(key)?{...s,storySeen:[...s.storySeen,key]}:s;}
 export function restartFirstChapter(s:CampaignProgress):CampaignProgress {return {...s,chapter:1,scene:0,started:true,moment:null,solved:s.solved.filter(id=>!id.startsWith('c1-')),bag:s.bag.filter(id=>!id.startsWith('c1-')),read:s.read.filter(id=>!id.startsWith('c1-')),used:s.used.filter(id=>!id.startsWith('c1-')),storySeen:[],world:s.world.filter(id=>!id.startsWith('c1-')),drafts:Object.fromEntries(Object.entries(s.drafts).filter(([id])=>!id.startsWith('c1-'))),introSeen:s.introSeen.filter(id=>id!==1),outroSeen:s.outroSeen.filter(id=>id!==1)};}
 export function restoreFirstChapter(s:CampaignProgress,backup:CampaignProgress):CampaignProgress {const merge=(current:string[],old:string[])=>[...current.filter(id=>!id.startsWith('c1-')),...old.filter(id=>id.startsWith('c1-'))];return {...s,chapter:1,scene:0,moment:null,solved:merge(s.solved,backup.solved),bag:[...new Set([...merge(s.bag,backup.bag),'c1-manifest','c1-warrant'])],read:merge(s.read,backup.read),used:merge(s.used,backup.used),storySeen:[...backup.storySeen],world:[...s.world.filter(id=>!id.startsWith('c1-')),...backup.world.filter(id=>id.startsWith('c1-'))],drafts:{...Object.fromEntries(Object.entries(s.drafts).filter(([id])=>!id.startsWith('c1-'))),...Object.fromEntries(Object.entries(backup.drafts).filter(([id])=>id.startsWith('c1-')))},introSeen:[...s.introSeen.filter(id=>id!==1),...backup.introSeen.filter(id=>id===1)],outroSeen:[...s.outroSeen.filter(id=>id!==1),...backup.outroSeen.filter(id=>id===1)]};}

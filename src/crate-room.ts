@@ -32,7 +32,7 @@ export function crateRoom(backdrop=''){
    <div class="crate-world-edge" aria-hidden="true"></div>
    <header class="crate-room-header"><span>军器库前院 <i>·</i> 甲三号箱</span><button data-crate-back aria-label="退后回到前院">← <span>退后</span></button></header>
    <div class="crate-caption" role="status" aria-live="polite"><span></span><p></p></div>
-   <footer class="crate-room-footer"><div class="crate-pouch"><button class="crate-pouch-toggle" data-crate-bag aria-expanded="false">衣囊 <span>⌃</span></button><div class="crate-pouch-items">${['c1-pry','c1-weight'].map(id=>`<button data-crate-tool="${id}" aria-label="拿起${prop(id).name}" aria-pressed="false">${propArt(prop(id))}<small>${prop(id).name}</small></button>`).join('')}<p class="crate-pouch-empty">衣囊里没有别的物件。</p></div></div><div class="crate-quiet-tools"><button data-crate-observe aria-label="察看可触碰的位置">察看</button><button data-crate-mentor>问老军匠</button><button class="crate-bottom-link" data-c="puzzle:c1-p3">察看箱底的擦痕</button></div></footer>
+   <footer class="crate-room-footer"><div class="crate-pouch"><button class="crate-pouch-toggle" data-crate-bag aria-expanded="false">衣囊 <span>⌃</span></button><div class="crate-pouch-items">${['c1-pry','c1-weight'].map(id=>`<button data-crate-tool="${id}" aria-label="拿起${prop(id).name}" aria-pressed="false">${propArt(prop(id))}<small>${prop(id).name}</small></button>`).join('')}<p class="crate-pouch-empty">衣囊里没有别的物件。</p></div></div><div class="crate-quiet-tools"><button data-crate-observe aria-label="察看可触碰的位置">察看</button><button data-crate-undo aria-label="取回刚用上的工具">取回工具</button><button data-crate-mentor>问老军匠</button><button class="crate-bottom-link" data-c="puzzle:c1-p3">察看箱底的擦痕</button><button data-crate-reset aria-label="把横木与箱盖放回原位">重摆</button></div></footer>
    <div class="crate-carry" aria-hidden="true"></div>
   </div>
  </section>`;
@@ -41,6 +41,8 @@ interface CrateBridge {
  state:()=>CampaignProgress;foley:Foley;initialTool:string|null;
  draft:(draft:LatchDraft)=>void;tool:(id:string)=>boolean;opened:()=>boolean;
  lining:()=>void;scraps:()=>void;bottom:()=>void;exit:()=>void;
+ /** 取回这件机关上最后用掉的一件工具；返回是否真的取回了。 */
+ undo:()=>boolean;
 }
 type Drag={pointer:number;kind:LatchPart|'tool'|'lining';startX:number;startY:number;startValue:number;rect:DOMRect;moved:boolean;tool?:string;blocked?:string|null};
 
@@ -160,6 +162,24 @@ export function mountCrateRoom(root:HTMLElement,bridge:CrateBridge){
   if(el.matches('[data-crate-bag]')){bag=!bag;sync();return;}
   if(el.matches('[data-crate-tool]')){chosen=el.dataset.crateTool!;bag=true;sync();return;}
   if(el.matches('[data-crate-observe]')){world.classList.add('observing');later(()=>world.classList.remove('observing'),1800);return;}
+  if(el.matches('[data-crate-undo]')){
+   // 取回这件机关上最后用掉的一件工具，方便玩家试另一种顺序。
+   // 已经解开的机关不给撤：撤了会和「已记入手记」的结论矛盾。
+   if(bridge.state().solved.includes('c1-p1')||openedReported){say('陆昭','箱子已经查清了，工具先放在手边。');return;}
+   if(!bridge.undo()){say('陆昭','手边没有可收回的工具。');return;}
+   const kept=bridge.state().used.filter(k=>k.startsWith('c1-p1:'));
+   if(!kept.includes('c1-p1:c1-weight'))d[1]=0;
+   if(!kept.includes('c1-p1:c1-pry')){d[1]=0;d[2]=0;}
+   chosen=null;bridge.foley.play('wood');sync();say('陆昭','工具收回来了。');
+   return;
+  }
+  if(el.matches('[data-crate-reset]')){
+   // 只把摆位放回原位，已经用上的工具不动——否则会退到解不开的状态。
+   if(bridge.state().solved.includes('c1-p1')||openedReported){say('陆昭','箱子已经查清了，不必再摆回去。');return;}
+   d=[...LATCH_START];if(tools().weight)d[1]=100;
+   chosen=null;bridge.foley.play('wood');persist();sync();say('陆昭','横木和箱盖都放回原位了。');
+   return;
+  }
   if(el.matches('[data-crate-mentor]')){say('老军匠',d[3]===100?'箱底的衬布也掀起来看看。':!tools().pry?'右边铁箍底下有道缝。工具台上那根木撬，前端是扁的。':d[1]<80?'把撬棍的长端压下去，横木才抬得起来。':!tools().weight?'我案上有只铜砝码。拿来压住那片铁舌。':d[2]<98?'横木顺着铁箍，往左抽。':'横木已经脱开，试着抬盖。');return;}
   if(el.matches('[data-crate-target]')){if(chosen){useTool(chosen);return;}say('陆昭',el.dataset.crateTarget==='pry'?'这里露着一道窄缝。':'这片铁舌一直往上顶。');return;}
   if(el.matches('[data-crate-part]')){const part=el.dataset.cratePart as LatchPart;attempt(part,d[{lever:1,bar:2,lid:3}[part]]+25);persist();if(part==='lid')settleLid();return;}

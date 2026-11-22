@@ -34,7 +34,7 @@ import {crateRoom,mountCrateRoom} from './crate-room';
 import {firstChapterScene,worldFocus,oilLamp} from './chapter-one-world-view';
 import {movePaper,paperClarity,inspectTrack,changeRoom,TRACK_MARKS,worldViewDraft} from './chapter-one-world';
 import {CHAPTERS,CHAPTER_BY_ID,type Chapter,type Puzzle,type Prop,type Clue} from './campaign-data';
-import {CAMPAIGN_KEY,freshCampaign,restoreCampaign,initialDraft,missingRequirements,puzzleReady,chapterComplete,enterChapter,takeProp,readClue,applyTool,solve,correctSolution,markStory,restartFirstChapter,restoreFirstChapter,type CampaignProgress,type Draft} from './campaign-state';
+import {CAMPAIGN_KEY,freshCampaign,restoreCampaign,initialDraft,missingRequirements,puzzleReady,chapterComplete,enterChapter,takeProp,readClue,applyTool,undoLastTool,solve,correctSolution,markStory,restartFirstChapter,restoreFirstChapter,type CampaignProgress,type Draft} from './campaign-state';
 import {moveCrate,CRATE_BLOCKS,ARTISAN_TOPICS,C1_SCENES,directSealDraft,sealReviewDraft} from './chapter-one';
 import {crateView,sealView} from './chapter-one-view';
 import {icon} from './icons';
@@ -189,6 +189,7 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
    state:()=>s,foley:options.foley,initialTool:chosen,
    draft:d=>update({...s,drafts:{...s.drafts,'c1-p1':d}}),
    tool:id=>{const next=applyTool(s,puzzleById('c1-p1'),id);if(next===s)return false;update(next);chosen=null;return true;},
+   undo:()=>{const next=undoLastTool(s,puzzleById('c1-p1'));if(!next)return false;update(next);chosen=null;return true;},
    opened:()=>{const result=solve(s,'c1-p1');if(!result.ok)return false;update(markStory({...result.state,scene:0},'c1-opened'));return true;},
    lining:()=>update(changeRoom({...s,scene:0},'lining')),
    scraps:()=>update(takeProp({...s,scene:0},'c1-scraps')),
@@ -348,7 +349,7 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
   if(cmd==='check'&&modal?.id){const puzzleId=modal.id,r=solve(s,puzzleId);if(r.ok){update(r.state);options.foley.play('reveal');token=null;if(s.chapter===1){const event=puzzleId==='c1-p1'?'opened':puzzleId==='c1-p2'?'patrol':puzzleId==='c1-p4'?'ink':null,key=event==='opened'?'c1-opened':event==='patrol'?'c1-patrol':'c1-ink';if(event&&!s.storySeen.includes(key)){startStory(event);return;}}render();}else{message=r.message;options.foley.play('wood');render();}return;}
   if(cmd==='crate-select'){crateSelected=n;render();return;}if(cmd==='crate-move'&&modal?.id){const d=drafts(puzzleById(modal.id)),next=moveCrate(d,crateSelected,n);if(next){modifyDraft(()=>next);options.foley.play('wood');}return;}
   if(cmd==='seal-overlay'){if(modal?.type==='world'&&modal.id==='c1-p5'&&s.solved.includes('c1-p5')){sealReviewOverlay=!sealReviewOverlay;message='';render();}else modifyDraft(d=>directSealDraft([d[0],d[1],d[2],1-Number(d[3])]));options.foley.play('paper');return;}if(cmd==='seal-feature'){if(modal?.id&&Number(drafts(puzzleById(modal.id))[3])!==1){message='先把两处印迹对照，再在右边旧印上圈出相同的损伤。';render();return;}modifyDraft(d=>directSealDraft([d[0],d[1],Number(d[2])^(1<<n),d[3]]));options.foley.play('paper');return;}
-  if(cmd==='reset-puzzle'&&modal?.id){const p=puzzleById(modal.id);modifyDraft(()=>initialDraft(p));token=null;return;}
+  if(cmd==='reset-puzzle'){const id=modal?.id||activeWorldId();if(!id)return;const p=puzzleById(id);if(!p||s.solved.includes(id))return;modifyDraft(()=>initialDraft(p));token=null;message='';return;}
   if(cmd==='token'){modifyDraft(d=>d.includes(id)?d:[...d,id]);options.foley.play('wood');return;}if(cmd==='remove'){modifyDraft(d=>d.filter((_,i)=>i!==n));return;}
   if(cmd==='toggle'){modifyDraft(d=>d.includes(n)?d.filter(x=>x!==n):modal?.id==='c1-p2'?[...d.slice(-1),n]:[...d,n]);return;}if(cmd==='dial'){modifyDraft((d,p)=>{d[n]=(Number(d[n])+1)%p.config.choices.length;return d;});options.foley.play('wood');return;}
   if(cmd==='piece'){if(modal?.id&&!puzzleReady(s,puzzleById(modal.id)))return;options.foley.play('paper');if(token===null){token=n;render();}else{const from=Number(token);token=null;modifyDraft(d=>{[d[from],d[n]]=[d[n],d[from]];return d;});}return;}
