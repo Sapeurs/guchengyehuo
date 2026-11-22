@@ -24,3 +24,36 @@
 .camp-paper h3,.camp-paper p{font-family:'Gucheng Campaign Display',var(--font-display);letter-spacing:0;mix-blend-mode:multiply}.camp-paper p{font-size:20px}.camp-paper h3{font-size:27px}.camp-ink-text{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.camp-ink-glyph{display:inline-flex;align-items:center;justify-content:center;writing-mode:horizontal-tb;width:1em;height:1.09em;line-height:1;opacity:var(--ink-alpha);transform:rotate(var(--ink-turn));font-size:calc(1em * var(--ink-size));user-select:none}
 @media(max-width:850px){.camp-paper p{font-size:18px}.camp-paper h3{font-size:24px}}
 @media(max-height:650px) and (min-width:601px){.camp-paper p{font-size:16px}.camp-paper h3{font-size:22px}}
+
+/* ---- 可拖拽元素的光标提示 ----
+   有些机关只能拖动（碎片交换、朱印叠合、箱底滑条、提灯照地），
+   但光标是默认箭头，玩家看不出「这里能拖」。统一补 grab，拖动时变 grabbing。 */
+[data-fragment],
+[data-seal-drag],
+[data-bottom-drag],
+[data-lantern-drag],
+[data-paper-drag],
+[data-field-brush] {
+  cursor: grab;
+  touch-action: none;
+}
+.camp-fragment.dragging,
+[data-fragment].dragging,
+[data-seal-drag].dragging,
+[data-paper-drag].dragging {
+  cursor: grabbing;
+}
+.crate-world.grabbing [data-crate-part],
+.crate-world.grabbing [data-crate-tool] {
+  cursor: grabbing;
+}
+/* 键盘可达：拖拽元素聚焦时给一圈很轻的提示，不影响画面 */
+[data-fragment]:focus-visible,
+[data-seal-drag]:focus-visible,
+[data-bottom-drag]:focus-visible,
+[data-lantern-drag]:focus-visible,
+[data-paper-drag]:focus-visible,
+[data-field-brush]:focus-visible {
+  outline: 1px dashed #d6bd8799;
+  outline-offset: 3px;
+}

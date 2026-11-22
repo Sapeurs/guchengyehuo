@@ -3,6 +3,7 @@ import {propArt} from './scene-presentation';
 import {LATCH_START,LATCH_OPEN,validLatch,latchMove,canWeight,latchComplete,type LatchDraft,type LatchPart} from './crate-latch';
 import type {CampaignProgress} from './campaign-state';
 import type {Foley} from './foley';
+import {isDrag} from './gesture';
 const A=(name:string)=>import.meta.env.BASE_URL+'assets/'+name;
 const prop=(id:string)=>CHAPTERS[0].props.find(p=>p.id===id)!;
 
@@ -127,7 +128,7 @@ export function mountCrateRoom(root:HTMLElement,bridge:CrateBridge){
  };
  const onMove=(e:PointerEvent)=>{
   if(!drag||e.pointerId!==drag.pointer)return;
-  const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.hypot(dx,dy)>5)drag.moved=true;
+  const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(isDrag(dx,dy))drag.moved=true;
   if(drag.kind==='tool'){carry(e.clientX,e.clientY);return;}
   if(drag.kind==='lining'){world.style.setProperty('--lining-drag',String(Math.max(0,Math.min(1,dx/(drag.rect.width*.16)))));return;}
   const amount=drag.kind==='lever'?dy/(drag.rect.height*.16)*100:drag.kind==='bar'?-dx/(drag.rect.width*.30)*100:-dy/(drag.rect.height*.24)*100;

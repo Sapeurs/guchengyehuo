@@ -16,6 +16,7 @@ import './campaign.css';
 import {propArt,propSpot,clueSpot,clueDetail,sceneAsset,sceneMarks} from './scene-presentation';
 import {visualHintsEnabled,toggleVisualHints} from './visual-hints';
 import {ARTISAN_PORTRAIT,artisanMoodFor} from './artisan-mood';
+import {isDrag,isDragX} from './gesture';
 import './chapter-one.css';
 import './chapter-one-world.css';
 import './scene-polish.css';
@@ -252,7 +253,7 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
  root.addEventListener('change',e=>{const el=e.target as HTMLInputElement;if(el.matches('[data-bottom-range]'))bottomAction('slide',Number(el.value));});
  let bottomDrag:{pointer:number;el:HTMLElement;x:number;start:number;width:number;moved:boolean}|null=null;
  root.addEventListener('pointerdown',e=>{const el=(e.target as Element).closest<HTMLElement>('[data-bottom-drag]');if(!el||modal?.id!=='c1-p3'||s.solved.includes('c1-p3'))return;bottomDrag={pointer:e.pointerId,el,x:e.clientX,start:Number(drafts(puzzleById('c1-p3'))[3]),width:el.getBoundingClientRect().width,moved:false};el.setPointerCapture(e.pointerId);});
- root.addEventListener('pointermove',e=>{const d=bottomDrag;if(!d||d.pointer!==e.pointerId)return;if(Math.abs(e.clientX-d.x)<4&&!d.moved)return;d.moved=true;bottomAction('slide',d.start+(d.x-e.clientX)/d.width*100,true);});
+ root.addEventListener('pointermove',e=>{const d=bottomDrag;if(!d||d.pointer!==e.pointerId)return;if(!d.moved&&!isDragX(e.clientX-d.x))return;d.moved=true;bottomAction('slide',d.start+(d.x-e.clientX)/d.width*100,true);});
  const endBottom=(e:PointerEvent)=>{const d=bottomDrag;if(!d||d.pointer!==e.pointerId)return;bottomDrag=null;if(d.el.hasPointerCapture(e.pointerId))d.el.releasePointerCapture(e.pointerId);if(d.moved){suppressTableClick=true;setTimeout(()=>{suppressTableClick=false;},0);render();}};
  root.addEventListener('pointerup',endBottom);root.addEventListener('pointercancel',endBottom);
  function syncPaper(){
@@ -273,7 +274,7 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
  root.addEventListener('pointermove',e=>{
   const drag=tableDrag;if(!drag||drag.pointer!==e.pointerId)return;
   const x=e.clientX-drag.x,y=e.clientY-drag.y;
-  if(!drag.moved&&Math.hypot(x,y)<6)return;
+  if(!drag.moved&&!isDrag(x,y))return;
   if(!drag.moved){drag.moved=true;drag.el.setPointerCapture(e.pointerId);drag.el.classList.add('dragging');options.foley.play('paper');}
   e.preventDefault();drag.el.style.translate=`${x}px ${y}px`;
   root.querySelectorAll<HTMLElement>('[data-fragment],.w-candidate-paper').forEach(el=>{
@@ -410,7 +411,7 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
  });
  let careDrag:{pointer:number;el:HTMLElement;x:number;width:number;moved:boolean}|null=null;
  root.addEventListener('pointerdown',e=>{const el=(e.target as Element).closest<HTMLElement>('.v21-care-grip');if(!el||modal?.id!=='c4-p3'||!puzzleReady(s,puzzleById('c4-p3'))||s.solved.includes('c4-p3'))return;careDrag={pointer:e.pointerId,el,x:e.clientX,width:el.getBoundingClientRect().width,moved:false};el.setPointerCapture(e.pointerId);});
- root.addEventListener('pointermove',e=>{const d=careDrag;if(!d||e.pointerId!==d.pointer)return;if(Math.abs(e.clientX-d.x)>6){d.moved=true;e.preventDefault();d.el.style.setProperty('--care-pull',Math.min(1,Math.max(0,(e.clientX-d.x)/d.width)).toString());}});
+ root.addEventListener('pointermove',e=>{const d=careDrag;if(!d||e.pointerId!==d.pointer)return;if(isDragX(e.clientX-d.x)){d.moved=true;e.preventDefault();d.el.style.setProperty('--care-pull',Math.min(1,Math.max(0,(e.clientX-d.x)/d.width)).toString());}});
  const endCare=(e:PointerEvent)=>{const d=careDrag;if(!d||d.pointer!==e.pointerId)return;careDrag=null;if(d.el.hasPointerCapture(e.pointerId))d.el.releasePointerCapture(e.pointerId);if(!d.moved)return;suppressTableClick=true;setTimeout(()=>{suppressTableClick=false;},0);if(e.type==='pointerup'&&(e.clientX-d.x)>d.width*.18)fieldAction('bind');else render();};
  root.addEventListener('pointerup',endCare);root.addEventListener('pointercancel',endCare);
  let inkDrag:{pointer:number;el:HTMLElement;rect:DOMRect;points:number[]}|null=null;

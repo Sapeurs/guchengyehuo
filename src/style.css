@@ -55,3 +55,16 @@
 .journal-content .document-caption .secondary-button{display:none}
 
 .quote{visibility:hidden}.quote.visible{visibility:visible}.quote>button{pointer-events:none}.quote.visible>button{pointer-events:auto}#acquisition{visibility:hidden}#acquisition.visible{visibility:visible}
+
+/* ---- 序章：可拖拽的武器木牌 ----
+   木牌既能点选也能拖进插位，光标要说明这一点。 */
+[data-weapon][draggable="true"],
+.weapon-tile[draggable="true"] {
+  cursor: grab;
+}
+[data-weapon][draggable="true"]:active {
+  cursor: grabbing;
+}
+.chest-slot:not(:disabled) {
+  cursor: pointer;
+}
