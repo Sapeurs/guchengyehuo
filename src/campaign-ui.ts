@@ -66,6 +66,8 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
  let s:CampaignProgress=freshCampaign();try{s=restoreCampaign(localStorage.getItem(CAMPAIGN_KEY));}catch{}
  const root=document.createElement('div');root.id='campaign-root';root.hidden=true;document.body.append(root);
  let modal:{type:string;id?:string}|null=null,bag=false,chosen:string|null=null,token:number|string|null=null,left=-1,hintLevel=0,showPoints=false,message='',savedWarning=false,zoom=false,sequenceLine=0,crateSelected=0,storyLine=0;
+ /** 「下一句」重渲染后按钮仍在原处，连点第二下会跳掉一句台词；这里做 180ms 去重。 */
+ let lineGate=0;
  const replayBackupKey=CAMPAIGN_KEY+':chapter-one-backup';
  let riverLine='';
  let lampAim:[number,number]=[27,70],sceneMotion='';
@@ -326,10 +328,10 @@ export function createCampaign(options:{foley:Foley;onExit:()=>void;onPrologue:(
 
  root.addEventListener('click',e=>{if(suppressTableClick){e.preventDefault();return;}const target=(e.target as Element).closest<HTMLElement>('[data-c]');if(!target)return;if((target as HTMLButtonElement).disabled)return;const [cmd,...rest]=target.dataset.c!.split(':'),id=rest.join(':'),n=Number(id);
   if(s.chapter===1&&s.world.includes('c1-patrol-active')&&['scene','locate','puzzle','artisan','finish'].includes(cmd)){notice('门外还有人。先遮住灯火。');return;}
-  if(cmd==='artisan'){open('artisan');return;}if(cmd==='talk'){startStory('talk-'+id);return;}if(cmd==='story-next'){if(++storyLine<storyLines().length)render();else finishStory();return;}if(cmd==='story-skip'){finishStory();return;}
+  if(cmd==='artisan'){open('artisan');return;}if(cmd==='talk'){startStory('talk-'+id);return;}if(cmd==='story-next'){const now=performance.now();if(now-lineGate<180)return;lineGate=now;if(++storyLine<storyLines().length)render();else finishStory();return;}if(cmd==='story-skip'){finishStory();return;}
   if(cmd==='c1-replay'){open('replay');return;}if(cmd==='c1-replay-confirm'){try{localStorage.setItem(replayBackupKey,JSON.stringify(s));}catch{notice('无法保存备份，已保留当前进度。');return;}update(restartFirstChapter(s));begin(1);return;}if(cmd==='c1-restore'){let raw:string|null=null;try{raw=localStorage.getItem(replayBackupKey);}catch{}if(!raw){notice('还没有重玩前的备份记录。');return;}update(restoreFirstChapter(s,restoreCampaign(raw)));begin(1,true);notice('已恢复重玩前的第一关记录。');return;}
   if(cmd==='chapter-replay'){open('chapter-replay',id);return;}if(cmd==='chapter-replay-confirm'){try{localStorage.setItem(CAMPAIGN_KEY+':replay-'+n,JSON.stringify(s));}catch{notice('备份未成功，当前记录已保留。');return;}update(restartChapter(s,n));begin(n);return;}if(cmd==='chapter-restore'){let raw=null;try{raw=localStorage.getItem(CAMPAIGN_KEY+':replay-'+n);}catch{}if(!raw){notice('还没有本关的备份记录。');return;}update(restoreChapter(s,restoreCampaign(raw),n));begin(n,true);return;}if(cmd==='chapter'){begin(n);return;}if(cmd==='resume'){modal=null;render();return;}if(cmd==='hints-toggle'){toggleVisualHints();render();return;}if(cmd==='exit'){exit();return;}if(cmd==='prologue'){exit(true);return;}
-  if(cmd==='next-sequence'){const lines=modal?.type==='intro'?chapter().intro:s.chapter===1?firstEnding(s):chapterOutro(s,chapter().outro);if(++sequenceLine<lines.length)render();else finishSequence();return;}if(cmd==='skip-sequence'){finishSequence();return;}
+  if(cmd==='next-sequence'){const now=performance.now();if(now-lineGate<180)return;lineGate=now;const lines=modal?.type==='intro'?chapter().intro:s.chapter===1?firstEnding(s):chapterOutro(s,chapter().outro);if(++sequenceLine<lines.length)render();else finishSequence();return;}if(cmd==='skip-sequence'){finishSequence();return;}
   if(cmd==='gate-vouch'){update(admitAtEastGate(s));modal=null;render();options.foley.play('step');return;}
   if(cmd==='moment-close'){finishMoment();return;}if(cmd==='close'){closeInspection();return;}if(cmd==='picker'){open('picker');return;}if(cmd==='scene'){if(n>=0&&n<3)sceneNavigate(n);return;}
   if(cmd==='points'){showPoints=true;render();clearTimeout(pointsTimer);pointsTimer=setTimeout(()=>{showPoints=false;root.querySelector('.camp-scene')?.classList.remove('camp-observing');},1500);return;}

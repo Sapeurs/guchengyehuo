@@ -18,6 +18,8 @@ type Modal='tag'|'ledger'|'box'|'noteA'|'noteB'|'detention'|'order'|'manifest'|'
 type Sequence='intro'|'search'|'ending'|null;
 let state=freshProgress();try{state=restoreProgress(localStorage.getItem(SAVE_KEY));}catch{}
 let modal:Modal=null,sequence:Sequence=null,sequenceIndex=0,menuOpen=true,bagOpen=false,hotspots=false;
+/** 上一次推进剧情的时间戳，用来挡住连点误跳台词。 */
+let sequenceGate=0;
 let selected:Item|null=null,selectedWeapon:Weapon|null=null,ledgerPage=0,journalEntry='';
 let reveal=false,openingBox=false,wetting=false,wiping=false,saveFailed=false,ledgerMagnified=false;
 let toastTimer:ReturnType<typeof setTimeout>,quoteTimer:ReturnType<typeof setTimeout>,observationTimer:ReturnType<typeof setTimeout>;
@@ -204,7 +206,14 @@ function identify(){if(ledgerPage!==1)return;if(!state.tagClean){toast('腰牌�
 document.addEventListener('click',e=>{
   if(isCampaignActive())return;
   const t=(e.target as Element).closest<HTMLElement>('[data-action]');if(!t)return;const a=t.dataset.action!;
-  if(a==='next-sequence'){if(sequence&&++sequenceIndex<sequenceLines[sequence].length)renderSequence();else finishSequence();return;}
+  if(a==='next-sequence'){
+   // 「下一句」重渲染后按钮落在原位，连点第二下会直接吃掉下一句台词。
+   // 180ms 内的重复激活一律忽略。
+   const now=performance.now();
+   if(now-sequenceGate<180)return;
+   sequenceGate=now;
+   if(sequence&&++sequenceIndex<sequenceLines[sequence].length)renderSequence();else finishSequence();return;
+  }
   if(a==='skip-sequence'){finishSequence();return;}
   if(sequence)return;
   if(a==='backdrop'){if(e.target===t)closeModal();return;}

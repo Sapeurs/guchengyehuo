@@ -74,6 +74,17 @@ export function mountCrateRoom(root:HTMLElement,bridge:CrateBridge){
   show('.crate-bar-control',d[3]===0&&d[2]<98);show('.crate-lid-control',d[3]<100);show('.crate-floor-control',d[3]===100);show('.crate-lining-control',d[3]===100&&!s.world.includes('c1-lining-lifted'));show('.crate-scraps-control',d[3]===100&&s.world.includes('c1-lining-lifted')&&!s.bag.includes('c1-scraps'));
  }
  function bump(reason:string){world.classList.remove('resisted');void world.offsetWidth;world.classList.add('resisted');later(()=>world.classList.remove('resisted'),500);bridge.foley.play(reason==='spring'?'latch':'wood');say('陆昭',reason==='spring'?'刚松开，铁舌又弹回来了。':reason==='pry'?'横木咬在铁箍里，手指伸不进去。':'盖子只动了一线，被横木顶住了。');}
+ /** 工具拖到了用不上的地方：回弹一下，并说清楚该往哪儿放。 */
+ function bumpTool(tool:string){
+  world.classList.remove('resisted');void world.offsetWidth;world.classList.add('resisted');
+  later(()=>world.classList.remove('resisted'),500);
+  bridge.foley.play('wood');
+  if(tool==='c1-pry'){
+   say('陆昭',tools().pry?'撬棍已经卡在窄缝里了，接着压手柄。':'撬棍得卡进右边铁箍旁那道窄缝。');
+   return;
+  }
+  say('陆昭',tools().pry?'砝码要压在露出来的铁舌上，别的地方压不住。':'先把撬棍卡进窄缝，铁舌才露得出来。');
+ }
  function attempt(part:LatchPart,value:number,announce=true){
   const old=[...d],result=latchMove(d,part,value,tools());
   if(result.blocked){if(announce&&result.blocked!=='open')bump(result.blocked);return result.blocked;}
@@ -128,7 +139,13 @@ export function mountCrateRoom(root:HTMLElement,bridge:CrateBridge){
   const previous=drag;drag=null;friction?.stop();friction=undefined;world.classList.remove('grabbing','carrying');world.style.setProperty('--resist','0');
   if(world.hasPointerCapture(e.pointerId))world.releasePointerCapture(e.pointerId);
   ignoreClick=true;later(()=>ignoreClick=false,0);
-  if(previous.kind==='tool'){if(!cancel&&previous.moved&&atTarget(previous.tool!,e.clientX,e.clientY))useTool(previous.tool!);else if(!cancel&&!previous.moved){bag=true;sync();say('陆昭','拿近看看。');}}
+  if(previous.kind==='tool'){
+   if(!cancel&&previous.moved&&atTarget(previous.tool!,e.clientX,e.clientY))useTool(previous.tool!);
+   else if(!cancel&&!previous.moved){bag=true;sync();say('陆昭','拿近看看。');}
+   // 拖着工具移动过、却没落到能用的位置：必须给回弹和一句说明，
+   // 否则玩家会以为这一次操作没被接住，甚至以为界面卡住了。
+   else if(!cancel){bumpTool(previous.tool!);}
+  }
   else if(previous.kind==='lining'){if(!cancel&&(previous.moved?Number(world.style.getPropertyValue('--lining-drag'))>.35:true))liftLining();world.style.setProperty('--lining-drag','0');}
   else if(!cancel&&previous.moved){if(previous.blocked)bump(previous.blocked);sync();persist();if(previous.kind==='lid')settleLid();}
   else{if(!cancel){attempt(previous.kind,d[{lever:1,bar:2,lid:3}[previous.kind]]+25);if(previous.kind==='lid')settleLid();}persist();}
