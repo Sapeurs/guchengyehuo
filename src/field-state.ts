@@ -36,7 +36,8 @@ export function fieldMove(id:string,current:unknown[],action:string,value=0):Fie
   if(action==='tail'){if(!d[2])return out('绳尾被上面的绳股压住，抽不动。');set(3);return out('活扣退出了。主缆仍系着，船不会漂走。','cloth');}
   if(action==='ladder'){if(!d[3])return out('木梯被绳扣吊住了。');set(4);return out('木梯沿船边放下，底舱入口露出来。','wood');}break;
  case 'c2-p2':
-  if(action==='depth'){set(1,Math.min(5,n));return out('','water');}
+  // 拖滑杆也要有回应：原来这里返回空串，玩家拖动水尺时画面毫无变化，像卡住了。
+  if(action==='depth'){set(1,Math.min(5,n));return out(d[1]===3?'钩尖落到现水线边，水面正好让开石缝。':d[1]>3?'钩尖还在水里，越往下够到的越是活水。':'钩尖离水面还高，碰到的是干石。','water');}
   if(action==='probe'){if(d[1]!==3)return out(d[1]>3?'钩尖只搅起水下的泥。退水露出的缝在更高一点。':'钩尖碰到了干石，石缝在现水线边。','water');set(2);return out('钩住了油布包里的底票，水痕正好留在戌时的旧线下。','paper');}break;
  case 'c2-p3':
   if(action==='sack')return out('隔着袋面一捏，盐粒沙沙作响。','cloth');
